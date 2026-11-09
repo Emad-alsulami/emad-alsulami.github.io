@@ -208,62 +208,87 @@
         <header class="section-head reveal">
           <span class="eyebrow">03 — المشاريع</span>
           <h2>أبرز المشاريع</h2>
-          <p class="section-sub">نماذج مختارة من أعمالي — اضغط على أي بطاقة لعرض التفاصيل.</p>
+          <p class="section-sub">دراسات حالة مختارة من أعمالي — اضغط على أي صورة لعرضها بحجم كامل.</p>
         </header>
 
-        <div class="filters reveal" role="group" aria-label="تصفية المشاريع">
-          <button class="filter active" data-filter="all">الكل</button>
-          <button class="filter" data-filter="app">تطبيقات</button>
-          <button class="filter" data-filter="design">تصميم واجهات</button>
-          <button class="filter" data-filter="3d">بيئات ثلاثية الأبعاد</button>
-        </div>
-
-        <div class="projects-grid" id="projectsGrid">
-          <article class="project reveal" data-cat="app" data-id="0" tabindex="0">
-            <div class="project-cover cover-azkar">
-              <img src="assets/azkar-app.png" alt="شاشات تطبيق أذكار" loading="lazy" />
-            </div>
-            <div class="project-body">
+        <!-- Case 1: Azkar -->
+        <article class="case reveal" id="azkar">
+          <div class="case-grid">
+            <div class="case-main">
+              <span class="case-index">01</span>
               <span class="tag">تطبيق جوال · HCI</span>
               <h3>تطبيق أذكار</h3>
-              <p>تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI).</p>
-              <ul class="chips"><li>Figma</li><li>UI/UX</li><li>HCI</li></ul>
-              <span class="more">عرض التفاصيل ←</span>
+              <p class="case-desc">تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI).</p>
+              <span class="status"><span class="dot"></span> تصميم واجهات مكتمل · ١٠ شاشات</span>
+              <ul class="chips"><li>Figma</li><li>UI/UX</li><li>HCI</li><li>Mobile App</li></ul>
             </div>
-          </article>
+            <ul class="case-features">
+              <li><strong>أذكار الصباح والمساء</strong><span>قوائم منظمة مع تتبع ما تم إنجازه من الورد اليومي.</span></li>
+              <li><strong>مسبحة إلكترونية</strong><span>عدّاد دائري تفاعلي واضح مع اختيار الذكر.</span></li>
+              <li><strong>المفضلة والإعدادات</strong><span>حفظ الأذكار المفضلة، والتنبيهات، وحجم الخط.</span></li>
+              <li><strong>وضع فاتح وداكن</strong><span>راحة للعين في جميع الأوقات.</span></li>
+              <li><strong>الحساب</strong><span>تسجيل الدخول، وإنشاء حساب، واستعادة كلمة المرور.</span></li>
+            </ul>
+          </div>
 
-          <article class="project reveal" data-cat="design" data-id="1" tabindex="0">
-            <div class="project-cover cover-2"><span class="cover-title" dir="ltr">ghayma</span></div>
-            <div class="project-body">
+          <div class="gallery" data-gallery="azkar">
+            <button class="shot" type="button"><img src="assets/azkar/screen-01.png" alt="أذكار الصباح — قائمة الأذكار" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-02.png" alt="أذكار الصباح — العدّاد" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-03.png" alt="أذكار المساء — الوضع الداكن" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-04.png" alt="المفضلة" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-05.png" alt="المسبحة" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-06.png" alt="الإعدادات" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-07.png" alt="تقبّل الله منك — إتمام الورد" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-08.png" alt="تسجيل الدخول" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-09.png" alt="استعادة كلمة المرور" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/screen-10.png" alt="إنشاء حساب" loading="lazy" /></button>
+          </div>
+        </article>
+
+        <div class="case-pair">
+          <!-- Case 2: ghayma -->
+          <article class="case case-sm reveal">
+            <div class="case-visual cover-2"><span dir="ltr">ghayma</span></div>
+            <div class="case-main">
+              <span class="case-index">02</span>
               <span class="tag">تصميم واجهات</span>
               <h3 dir="ltr" class="ltr-title">ghayma App UI</h3>
-              <p>تصميم واجهات تطبيق "غيمة" بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية.</p>
+              <p class="case-desc">تصميم واجهات تطبيق "غيمة" بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية.</p>
+              <ul class="case-features compact">
+                <li><strong>شاشات التطبيق الرئيسية</strong></li>
+                <li><strong>نظام ألوان وخطوط متناسق</strong></li>
+                <li><strong>نموذج أولي تفاعلي</strong></li>
+              </ul>
               <ul class="chips"><li>Figma</li><li>UI Design</li><li>Prototyping</li></ul>
-              <span class="more">عرض التفاصيل ←</span>
             </div>
           </article>
 
-          <article class="project reveal" data-cat="3d" data-id="2" tabindex="0">
-            <div class="project-cover cover-4"><span class="cover-title" dir="ltr">3D</span></div>
-            <div class="project-body">
+          <!-- Case 3: Roblox -->
+          <article class="case case-sm reveal">
+            <div class="case-visual cover-4"><span dir="ltr">3D</span></div>
+            <div class="case-main">
+              <span class="case-index">03</span>
               <span class="tag">بيئة ثلاثية الأبعاد</span>
               <h3 dir="ltr" class="ltr-title">Roblox 3D Environment</h3>
-              <p>بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة.</p>
+              <p class="case-desc">بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة.</p>
+              <ul class="case-features compact">
+                <li><strong>تصميم عالم ثلاثي الأبعاد</strong></li>
+                <li><strong>برمجة التفاعلات بلغة Lua</strong></li>
+                <li><strong>تجربة استكشاف للاعب</strong></li>
+              </ul>
               <ul class="chips"><li>Roblox Studio</li><li>Lua</li><li>3D Design</li></ul>
-              <span class="more">عرض التفاصيل ←</span>
             </div>
           </article>
         </div>
       </div>
     </section>
-
     <!-- ===== Contact ===== -->
     <section class="section section-dark" id="contact">
       <div class="container">
         <header class="section-head reveal">
           <span class="eyebrow">04 — التواصل</span>
           <h2>لنعمل معاً</h2>
-          <p class="section-sub">لديك فكرة أو فرصة تدريب أو تعاون؟ يسعدني تواصلك عبر أي من الوسائل التالية.</p>
+          <p class="section-sub">لديك فكرة أو فرصة تدريب أو تعاون؟ اكتب رسالتك وستصلني مباشرة.</p>
         </header>
 
         <div class="contact-grid">
@@ -274,7 +299,7 @@
               </div>
               <div>
                 <span>واتساب</span>
-                <strong dir="ltr">055 290 7656</strong>
+                <strong>محادثة مباشرة</strong>
               </div>
               <em>←</em>
             </a>
@@ -290,24 +315,19 @@
               </div>
               <button class="copy-btn" id="copyEmail" type="button" aria-label="نسخ البريد">نسخ</button>
             </div>
-
-            <a class="contact-card" href="tel:+966552907656">
-              <div class="c-icon">
-                <svg viewBox="0 0 24 24"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1l-2.3 2.2Z"/></svg>
-              </div>
-              <div>
-                <span>اتصال مباشر</span>
-                <strong dir="ltr">+966 55 290 7656</strong>
-              </div>
-              <em>←</em>
-            </a>
           </div>
 
           <form class="contact-form reveal" id="contactForm" novalidate>
-            <h3>أرسل رسالة سريعة</h3>
-            <div class="field">
-              <label for="name">الاسم</label>
-              <input id="name" name="name" type="text" placeholder="اكتب اسمك" required />
+            <h3>أرسل رسالة</h3>
+            <div class="field-row">
+              <div class="field">
+                <label for="name">الاسم</label>
+                <input id="name" name="name" type="text" placeholder="اكتب اسمك" required />
+              </div>
+              <div class="field">
+                <label for="reply">بريدك أو رقمك <small>(للرد عليك)</small></label>
+                <input id="reply" name="reply" type="text" placeholder="example@mail.com" />
+              </div>
             </div>
             <div class="field">
               <label for="subject">الموضوع</label>
@@ -322,11 +342,12 @@
               <label for="message">الرسالة</label>
               <textarea id="message" name="message" rows="4" placeholder="اكتب رسالتك هنا..." required></textarea>
             </div>
+            <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <p class="form-note" id="formNote" role="status"></p>
-            <div class="form-actions">
-              <button type="submit" class="btn btn-light" data-via="wa">إرسال عبر واتساب</button>
-              <button type="submit" class="btn btn-ghost" data-via="mail">إرسال عبر البريد</button>
-            </div>
+            <button type="submit" class="btn btn-light btn-send" id="sendBtn">
+              <span class="send-label">إرسال الرسالة</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
           </form>
         </div>
       </div>
@@ -345,22 +366,15 @@
     <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2.2 6.5 6.6 2 12 2a9.9 9.9 0 0 1 9.9 9.9c0 5.5-4.4 9.9-9.9 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"/></svg>
   </a>
 
-  <!-- Project Modal -->
-  <div class="modal" id="modal" aria-hidden="true">
-    <div class="modal-backdrop" data-close></div>
-    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-      <button class="modal-close" data-close aria-label="إغلاق">×</button>
-      <div class="modal-cover" id="modalCover"></div>
-      <div class="modal-content">
-        <span class="tag" id="modalTag"></span>
-        <h3 id="modalTitle"></h3>
-        <p id="modalDesc"></p>
-        <h4>أبرز المميزات</h4>
-        <ul class="modal-list" id="modalList"></ul>
-        <ul class="chips" id="modalChips"></ul>
-        <a href="https://wa.me/966552907656" target="_blank" rel="noopener" class="btn btn-dark" id="modalCta">استفسر عن هذا المشروع</a>
-      </div>
-    </div>
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="عرض الصورة">
+    <button class="lb-close" data-lb="close" aria-label="إغلاق">×</button>
+    <button class="lb-nav lb-prev" data-lb="prev" aria-label="السابق">›</button>
+    <figure>
+      <img id="lbImg" alt="" />
+      <figcaption id="lbCap"></figcaption>
+    </figure>
+    <button class="lb-nav lb-next" data-lb="next" aria-label="التالي">‹</button>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -370,6 +384,11 @@
     'use strict';
     const WA = '966552907656';
     const EMAIL = 'emadfaisalalsulami@gmail.com';
+    /* إعداد إرسال الرسائل إلى واتساب (CallMeBot) — ضع مفتاح API هنا بعد تفعيله */
+    const CONFIG = {
+      phone: '+966552907656',
+      callmebotKey: ''
+    };
     const $ = (s, c = document) => c.querySelector(s);
     const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
 
@@ -461,65 +480,39 @@
       });
     }));
 
-    /* Project filters */
-    $$('.filter').forEach(btn => btn.addEventListener('click', () => {
-      $$('.filter').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const f = btn.dataset.filter;
-      $$('.project').forEach(card => {
-        const show = f === 'all' || card.dataset.cat === f;
-        card.classList.toggle('hidden', !show);
-      });
-    }));
-
-    /* Project modal */
-    const projects = [
-      {
-        title: 'تطبيق أذكار', tag: 'تطبيق جوال · HCI', cover: 'cover-azkar',
-        desc: 'تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI).',
-        features: ['أذكار الصباح والمساء والورد اليومي', 'مسبحة إلكترونية تفاعلية مع عدّاد', 'قائمة المفضلة وإعدادات التنبيهات', 'وضع فاتح وداكن', 'تسجيل الدخول وإنشاء حساب واستعادة كلمة المرور'],
-        chips: ['Figma', 'UI/UX', 'HCI', 'Mobile App']
-      },
-      {
-        title: 'ghayma App UI', tag: 'تصميم واجهات', cover: 'cover-2',
-        desc: 'تصميم واجهات تطبيق "غيمة" بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية.',
-        features: ['تصميم شاشات التطبيق الرئيسية', 'نظام ألوان وخطوط متناسق', 'نموذج أولي تفاعلي (Prototype)', 'مراعاة مبادئ قابلية الاستخدام'],
-        chips: ['Figma', 'UI Design', 'Prototyping']
-      },
-      {
-        title: 'Roblox 3D Environment', tag: 'بيئة ثلاثية الأبعاد', cover: 'cover-4',
-        desc: 'بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة.',
-        features: ['تصميم عالم ثلاثي الأبعاد متكامل', 'برمجة التفاعلات بلغة Lua', 'تنظيم العناصر والمشاهد', 'تجربة استكشاف ممتعة للاعب'],
-        chips: ['Roblox Studio', 'Lua', '3D Design']
-      }
-    ];
-    const modal = $('#modal');
-    let lastFocus = null;
-    function openModal(id) {
-      const p = projects[id]; if (!p) return;
-      lastFocus = document.activeElement;
-      $('#modalTitle').textContent = p.title;
-      $('#modalTag').textContent = p.tag;
-      $('#modalDesc').textContent = p.desc;
-      $('#modalCover').className = 'modal-cover ' + p.cover;
-      $('#modalList').innerHTML = p.features.map(f => '<li>' + f + '</li>').join('');
-      $('#modalChips').innerHTML = p.chips.map(c => '<li>' + c + '</li>').join('');
-      $('#modalCta').href = 'https://wa.me/' + WA + '?text=' + encodeURIComponent('مرحباً عماد، أرغب في الاستفسار عن مشروع: ' + p.title);
-      modal.classList.add('open'); modal.setAttribute('aria-hidden', 'false');
+    /* Gallery lightbox */
+    const lb = $('#lightbox'), lbImg = $('#lbImg'), lbCap = $('#lbCap');
+    let shots = [], cur = 0, lbLast = null;
+    function showShot(i) {
+      cur = (i + shots.length) % shots.length;
+      const img = $('img', shots[cur]);
+      lbImg.src = img.src; lbImg.alt = img.alt;
+      lbCap.textContent = img.alt + '  (' + toArabic(cur + 1) + ' / ' + toArabic(shots.length) + ')';
+    }
+    function openLb(group, i) {
+      shots = $$('.shot', group); lbLast = document.activeElement;
+      showShot(i);
+      lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false');
       document.body.classList.add('no-scroll');
-      $('.modal-close').focus();
+      $('.lb-close').focus();
     }
-    function closeModal() {
-      modal.classList.remove('open'); modal.setAttribute('aria-hidden', 'true');
+    function closeLb() {
+      lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true');
       document.body.classList.remove('no-scroll');
-      if (lastFocus) lastFocus.focus();
+      if (lbLast) lbLast.focus();
     }
-    $$('.project').forEach(card => {
-      card.addEventListener('click', () => openModal(card.dataset.id));
-      card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openModal(card.dataset.id); } });
+    $$('.gallery').forEach(g => $$('.shot', g).forEach((b, i) => b.addEventListener('click', () => openLb(g, i))));
+    lb.addEventListener('click', e => {
+      const a = e.target.closest('[data-lb]');
+      if (a) { const k = a.dataset.lb; if (k === 'close') closeLb(); else showShot(cur + (k === 'next' ? 1 : -1)); }
+      else if (e.target === lb) closeLb();
     });
-    $$('[data-close]').forEach(el => el.addEventListener('click', closeModal));
-    addEventListener('keydown', e => { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    addEventListener('keydown', e => {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') showShot(cur + 1);
+      if (e.key === 'ArrowRight') showShot(cur - 1);
+    });
 
     /* Toast */
     const toast = $('#toast'); let tt;
@@ -539,24 +532,46 @@
       }
     });
 
-    /* Contact form → WhatsApp / Email */
-    const form = $('#contactForm'), note = $('#formNote');
-    let via = 'wa';
-    $$('button[data-via]', form).forEach(b => b.addEventListener('click', () => { via = b.dataset.via; }));
-    form.addEventListener('submit', e => {
+    /* Contact form → sent in the background (WhatsApp via CallMeBot + email via FormSubmit) */
+    const form = $('#contactForm'), note = $('#formNote'), sendBtn = $('#sendBtn');
+    form.addEventListener('submit', async e => {
       e.preventDefault();
-      const name = form.name.value.trim(), msg = form.message.value.trim(), subj = form.subject.value;
+      if (form._honey.value) return; // spam bot
+      const name = form.name.value.trim(), reply = form.reply.value.trim();
+      const msg = form.message.value.trim(), subj = form.subject.value;
       form.name.classList.toggle('invalid', !name);
       form.message.classList.toggle('invalid', !msg);
       if (!name || !msg) { note.textContent = 'فضلاً اكتب اسمك ورسالتك أولاً.'; note.className = 'form-note err'; return; }
-      const body = 'مرحباً عماد،\nالاسم: ' + name + '\nالموضوع: ' + subj + '\n\n' + msg;
-      if (via === 'wa') {
-        window.open('https://wa.me/' + WA + '?text=' + encodeURIComponent(body), '_blank', 'noopener');
-      } else {
-        location.href = 'mailto:' + EMAIL + '?subject=' + encodeURIComponent(subj + ' — ' + name) + '&body=' + encodeURIComponent(body);
+
+      sendBtn.disabled = true; sendBtn.classList.add('loading'); note.textContent = ''; note.className = 'form-note';
+      const text = '📩 رسالة جديدة من موقعك\n\nالاسم: ' + name + (reply ? '\nللتواصل: ' + reply : '') +
+                   '\nالموضوع: ' + subj + '\n\n' + msg;
+      const jobs = [];
+
+      if (CONFIG.callmebotKey) {
+        const url = 'https://api.callmebot.com/whatsapp.php?phone=' + encodeURIComponent(CONFIG.phone) +
+                    '&apikey=' + encodeURIComponent(CONFIG.callmebotKey) + '&text=' + encodeURIComponent(text);
+        jobs.push(fetch(url, { mode: 'no-cors' }).then(() => true));
       }
-      note.textContent = via === 'wa' ? 'تم تجهيز رسالتك في واتساب — اضغط إرسال هناك.' : 'تم فتح تطبيق البريد برسالتك الجاهزة.';
-      note.className = 'form-note ok';
+      jobs.push(fetch('https://formsubmit.co/ajax/' + EMAIL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ _subject: 'رسالة من موقعك: ' + subj + ' — ' + name, _template: 'table', _captcha: 'false',
+                               'الاسم': name, 'للتواصل': reply || '—', 'الموضوع': subj, 'الرسالة': msg })
+      }).then(r => r.ok));
+
+      const results = await Promise.allSettled(jobs);
+      const ok = results.some(r => r.status === 'fulfilled' && r.value);
+      sendBtn.disabled = false; sendBtn.classList.remove('loading');
+      if (ok) {
+        form.reset();
+        note.textContent = '✓ تم إرسال رسالتك بنجاح، سأتواصل معك قريباً. شكراً لك!';
+        note.className = 'form-note ok';
+        showToast('تم الإرسال ✓');
+      } else {
+        note.textContent = 'تعذّر الإرسال حالياً، حاول مرة أخرى بعد قليل.';
+        note.className = 'form-note err';
+      }
     });
   })();
   </script>
