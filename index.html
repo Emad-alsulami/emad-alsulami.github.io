@@ -3,13 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>عماد السلمي | طالب علوم حاسب وذكاء اصطناعي</title>
-  <meta name="description" content="ملف أعمال عماد فيصل السلمي — طالب علوم حاسب وذكاء اصطناعي بجامعة أم القرى. المهارات والمشاريع ووسائل التواصل." />
+  <title data-ar="عماد السلمي | طالب علوم حاسب وذكاء اصطناعي" data-en="Emad Al-Sulami | Computer Science &amp; AI Student">عماد السلمي | طالب علوم حاسب وذكاء اصطناعي</title>
+  <meta name="description" content="ملف أعمال عماد فيصل السلمي — طالب علوم حاسب وذكاء اصطناعي بجامعة أم القرى. Portfolio of Emad Al-Sulami — Computer Science &amp; AI student at Umm Al-Qura University." />
   <meta name="theme-color" content="#171321" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23171321'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-weight='700' font-size='28' fill='%23ffffff'%3EES%3C/text%3E%3C/svg%3E" />
+  <!-- Apply saved language before paint (avoids flicker) -->
+  <script>
+    (function () {
+      try {
+        var l = localStorage.getItem('lang');
+        if (l === 'en') { document.documentElement.lang = 'en'; document.documentElement.dir = 'ltr'; }
+      } catch (e) {}
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -17,22 +26,29 @@
   <!-- ===== Header ===== -->
   <header class="site-header" id="top">
     <div class="container nav">
-      <a href="#hero" class="brand" aria-label="الرئيسية">
+      <a href="#hero" class="brand" data-ar-label="الرئيسية" data-en-label="Home" aria-label="الرئيسية">
         <span class="brand-mark">ES</span>
-        <span class="brand-name">عماد السلمي</span>
+        <span class="brand-name" data-ar="عماد السلمي" data-en="Emad Al-Sulami">عماد السلمي</span>
       </a>
 
-      <nav class="nav-links" id="navLinks" aria-label="التنقل الرئيسي">
-        <a href="#about">عني</a>
-        <a href="#skills">المهارات</a>
-        <a href="#projects">المشاريع</a>
-        <a href="#contact">التواصل</a>
-        <a href="https://wa.me/966552907656" target="_blank" rel="noopener" class="btn btn-dark btn-sm nav-cta">تواصل معي</a>
+      <nav class="nav-links" id="navLinks" data-ar-label="التنقل الرئيسي" data-en-label="Main navigation" aria-label="التنقل الرئيسي">
+        <a href="#about" data-ar="عني" data-en="About">عني</a>
+        <a href="#skills" data-ar="المهارات" data-en="Skills">المهارات</a>
+        <a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a>
+        <a href="#contact" data-ar="التواصل" data-en="Contact">التواصل</a>
+        <a href="https://wa.me/966552907656" target="_blank" rel="noopener" class="btn btn-dark btn-sm nav-cta" data-ar="تواصل معي" data-en="Contact me">تواصل معي</a>
       </nav>
 
-      <button class="menu-toggle" id="menuToggle" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
-        <span></span><span></span><span></span>
-      </button>
+      <div class="nav-actions">
+        <button class="lang-switch" id="langSwitch" type="button" data-ar-label="Switch to English" data-en-label="التبديل إلى العربية" aria-label="Switch to English">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.9 6h-2.9a15.7 15.7 0 0 0-1.4-3.6A8 8 0 0 1 18.9 8ZM12 4a14 14 0 0 1 1.9 4h-3.8A14 14 0 0 1 12 4ZM4.3 14a8.2 8.2 0 0 1 0-4h3.4a16.5 16.5 0 0 0 0 4H4.3Zm.8 2h2.9c.3 1.3.8 2.5 1.4 3.6A8 8 0 0 1 5.1 16ZM8 8H5.1a8 8 0 0 1 4.3-3.6C8.8 5.5 8.3 6.7 8 8Zm4 12a14 14 0 0 1-1.9-4h3.8A14 14 0 0 1 12 20Zm2.3-6H9.7a14.7 14.7 0 0 1 0-4h4.6a14.7 14.7 0 0 1 0 4Zm.3 5.6c.6-1.1 1.1-2.3 1.4-3.6h2.9a8 8 0 0 1-4.3 3.6Zm1.7-5.6a16.5 16.5 0 0 0 0-4h3.4a8.2 8.2 0 0 1 0 4h-3.4Z"/></svg>
+          <span class="lang-label" data-ar="English" data-en="عربي">English</span>
+        </button>
+
+        <button class="menu-toggle" id="menuToggle" data-ar-label="فتح القائمة" data-en-label="Open menu" aria-label="فتح القائمة" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
     <div class="scroll-progress" id="scrollProgress"></div>
   </header>
@@ -43,29 +59,29 @@
       <div class="hero-bg" aria-hidden="true"></div>
       <div class="container hero-grid">
         <div class="hero-text reveal">
-          <span class="badge"><span class="dot"></span> متاح للتدريب وفرص التعاون</span>
+          <span class="badge"><span class="dot"></span> <span data-ar="متاح للتدريب وفرص التعاون" data-en="Open to internships &amp; collaboration">متاح للتدريب وفرص التعاون</span></span>
           <h1>
-            مرحباً، أنا <span class="highlight">عماد فيصل السلمي</span>
+            <span data-ar="مرحباً، أنا" data-en="Hi, I'm">مرحباً، أنا</span>
+            <span class="highlight" data-ar="عماد فيصل السلمي" data-en="Emad Faisal Al-Sulami">عماد فيصل السلمي</span>
           </h1>
           <p class="typed-line">
             <span class="typed" id="typed"></span><span class="caret" aria-hidden="true"></span>
           </p>
-          <p class="lead">
-            طالب علوم حاسب وذكاء اصطناعي بجامعة أم القرى. أطوّر التطبيقات، وأعمل على خوارزميات تعلّم الآلة،
-            وأصمّم واجهات تضع المستخدم أولاً.
-          </p>
+          <p class="lead"
+             data-ar="طالب علوم حاسب وذكاء اصطناعي بجامعة أم القرى. أطوّر التطبيقات، وأعمل على خوارزميات تعلّم الآلة، وأصمّم واجهات تضع المستخدم أولاً."
+             data-en="Computer Science &amp; AI student at Umm Al-Qura University. I build applications, work on machine learning algorithms, and design user-first interfaces.">طالب علوم حاسب وذكاء اصطناعي بجامعة أم القرى. أطوّر التطبيقات، وأعمل على خوارزميات تعلّم الآلة، وأصمّم واجهات تضع المستخدم أولاً.</p>
           <div class="hero-actions">
             <a href="https://wa.me/966552907656?text=%D9%85%D8%B1%D8%AD%D8%A8%D8%A7%D9%8B%20%D8%B9%D9%85%D8%A7%D8%AF%D8%8C%20%D8%A7%D8%B7%D9%84%D8%B9%D8%AA%20%D8%B9%D9%84%D9%89%20%D9%85%D9%84%D9%81%20%D8%A3%D8%B9%D9%85%D8%A7%D9%84%D9%83" target="_blank" rel="noopener" class="btn btn-dark">
               <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2.2 6.5 6.6 2 12 2a9.9 9.9 0 0 1 9.9 9.9c0 5.5-4.4 9.9-9.9 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"/></svg>
-              تواصل معي عبر واتساب
+              <span data-ar="تواصل معي عبر واتساب" data-en="Message me on WhatsApp">تواصل معي عبر واتساب</span>
             </a>
-            <a href="#projects" class="btn btn-outline">استعرض أعمالي</a>
+            <a href="#projects" class="btn btn-outline" data-ar="استعرض أعمالي" data-en="View my work">استعرض أعمالي</a>
           </div>
 
           <ul class="stats">
-            <li><strong class="counter" data-target="3">0</strong><span>مشاريع مميزة</span></li>
-            <li><strong class="counter" data-target="12">0</strong><span>مهارة تقنية</span></li>
-            <li><strong class="counter" data-target="100" data-suffix="٪">0</strong><span>شغف بالتعلّم</span></li>
+            <li><strong class="counter" data-target="3">0</strong><span data-ar="مشاريع مميزة" data-en="Featured projects">مشاريع مميزة</span></li>
+            <li><strong class="counter" data-target="12">0</strong><span data-ar="مهارة تقنية" data-en="Technical skills">مهارة تقنية</span></li>
+            <li><strong class="counter" data-target="100" data-pct="1">0</strong><span data-ar="شغف بالتعلّم" data-en="Passion for learning">شغف بالتعلّم</span></li>
           </ul>
         </div>
 
@@ -87,33 +103,31 @@
           <div class="float-chip chip-2">UI/UX · HCI ✓</div>
         </div>
       </div>
-      <a href="#about" class="scroll-hint" aria-label="انتقل إلى قسم عني"><span></span></a>
+      <a href="#about" class="scroll-hint" data-ar-label="انتقل إلى قسم عني" data-en-label="Scroll to About" aria-label="انتقل إلى قسم عني"><span></span></a>
     </section>
 
     <!-- ===== About ===== -->
     <section class="section" id="about">
       <div class="container">
         <header class="section-head reveal">
-          <span class="eyebrow">01 — عنّي</span>
-          <h2>من أنا؟</h2>
+          <span class="eyebrow" data-ar="01 — عنّي" data-en="01 — About">01 — عنّي</span>
+          <h2 data-ar="من أنا؟" data-en="Who am I?">من أنا؟</h2>
         </header>
 
         <div class="about-grid">
           <div class="about-text reveal">
             <p>
-              أنا <strong>عماد فيصل السلمي</strong>، طالب علوم حاسب وذكاء اصطناعي
-              <span class="en-sub" dir="ltr">(Computer Science &amp; Artificial Intelligence Student)</span>.
+              <span data-ar="أنا" data-en="I'm">أنا</span>
+              <strong data-ar="عماد فيصل السلمي" data-en="Emad Faisal Al-Sulami">عماد فيصل السلمي</strong><span data-ar="، طالب علوم حاسب وذكاء اصطناعي." data-en=", a Computer Science &amp; Artificial Intelligence student.">، طالب علوم حاسب وذكاء اصطناعي.</span>
             </p>
-            <p>
-              أدرس علوم الحاسب والذكاء الاصطناعي بجامعة أم القرى. أمتلك خبرة في تطوير التطبيقات، خوارزميات تعلم الآلة
-              (Machine Learning)، وتصميم واجهات المستخدم (UI/UX) والتحليل البرمجي.
-            </p>
+            <p data-ar="أدرس علوم الحاسب والذكاء الاصطناعي بجامعة أم القرى. أمتلك خبرة في تطوير التطبيقات، خوارزميات تعلم الآلة (Machine Learning)، وتصميم واجهات المستخدم (UI/UX) والتحليل البرمجي."
+               data-en="I study Computer Science and Artificial Intelligence at Umm Al-Qura University. I have experience in application development, Machine Learning algorithms, UI/UX design, and software analysis.">أدرس علوم الحاسب والذكاء الاصطناعي بجامعة أم القرى. أمتلك خبرة في تطوير التطبيقات، خوارزميات تعلم الآلة (Machine Learning)، وتصميم واجهات المستخدم (UI/UX) والتحليل البرمجي.</p>
 
             <ul class="about-facts">
-              <li><span>التخصص</span><strong>علوم الحاسب والذكاء الاصطناعي</strong></li>
-              <li><span>الجامعة</span><strong>جامعة أم القرى</strong></li>
-              <li><span>البريد</span><strong dir="ltr">emadfaisalalsulami@gmail.com</strong></li>
-              <li><span>الحالة</span><strong class="ok">متاح للتدريب والتعاون</strong></li>
+              <li><span data-ar="التخصص" data-en="Major">التخصص</span><strong data-ar="علوم الحاسب والذكاء الاصطناعي" data-en="Computer Science &amp; AI">علوم الحاسب والذكاء الاصطناعي</strong></li>
+              <li><span data-ar="الجامعة" data-en="University">الجامعة</span><strong data-ar="جامعة أم القرى" data-en="Umm Al-Qura University">جامعة أم القرى</strong></li>
+              <li><span data-ar="البريد" data-en="Email">البريد</span><strong dir="ltr">emadfaisalalsulami@gmail.com</strong></li>
+              <li><span data-ar="الحالة" data-en="Status">الحالة</span><strong class="ok" data-ar="متاح للتدريب والتعاون" data-en="Open to internships &amp; collaboration">متاح للتدريب والتعاون</strong></li>
             </ul>
           </div>
 
@@ -123,8 +137,8 @@
                 <svg viewBox="0 0 24 24"><path d="M9 2h2v2h2V2h2v2h2a2 2 0 0 1 2 2v2h2v2h-2v2h2v2h-2v2a2 2 0 0 1-2 2h-2v2h-2v-2h-2v2H9v-2H7a2 2 0 0 1-2-2v-2H3v-2h2v-2H3V8h2V6a2 2 0 0 1 2-2h2V2Zm-2 4v12h10V6H7Zm2 2h6v8H9V8Z"/></svg>
               </div>
               <div>
-                <h3>الذكاء الاصطناعي وتعلّم الآلة</h3>
-                <p>بناء نماذج تعلّم الآلة، وتجهيز البيانات وتحليلها لاستخراج نتائج مفيدة.</p>
+                <h3 data-ar="الذكاء الاصطناعي وتعلّم الآلة" data-en="AI &amp; Machine Learning">الذكاء الاصطناعي وتعلّم الآلة</h3>
+                <p data-ar="بناء نماذج تعلّم الآلة، وتجهيز البيانات وتحليلها لاستخراج نتائج مفيدة." data-en="Building machine learning models and preparing and analyzing data to extract useful insights.">بناء نماذج تعلّم الآلة، وتجهيز البيانات وتحليلها لاستخراج نتائج مفيدة.</p>
               </div>
             </article>
             <article class="value">
@@ -132,8 +146,8 @@
                 <svg viewBox="0 0 24 24"><path d="M7 2h10a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm0 3v13h10V5H7Zm5 14.2a.9.9 0 1 0 0 1.8.9.9 0 0 0 0-1.8Z"/></svg>
               </div>
               <div>
-                <h3>تطوير التطبيقات</h3>
-                <p>تحويل الأفكار إلى تطبيقات عملية بكود نظيف ومنظم وقابل للتطوير.</p>
+                <h3 data-ar="تطوير التطبيقات" data-en="Application Development">تطوير التطبيقات</h3>
+                <p data-ar="تحويل الأفكار إلى تطبيقات عملية بكود نظيف ومنظم وقابل للتطوير." data-en="Turning ideas into practical applications with clean, organized, and scalable code.">تحويل الأفكار إلى تطبيقات عملية بكود نظيف ومنظم وقابل للتطوير.</p>
               </div>
             </article>
             <article class="value">
@@ -141,8 +155,8 @@
                 <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.7 7.6 1 12c1.7 4.4 6 7.5 11 7.5s9.3-3.1 11-7.5c-1.7-4.4-6-7.5-11-7.5Zm0 12.5a5 5 0 1 1 0-10 5 5 0 0 1 0 10Zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>
               </div>
               <div>
-                <h3>تصميم UI/UX والتفاعل HCI</h3>
-                <p>واجهات واضحة وسهلة الاستخدام مبنية على مبادئ التفاعل بين الإنسان والحاسب.</p>
+                <h3 data-ar="تصميم UI/UX والتفاعل HCI" data-en="UI/UX Design &amp; HCI">تصميم UI/UX والتفاعل HCI</h3>
+                <p data-ar="واجهات واضحة وسهلة الاستخدام مبنية على مبادئ التفاعل بين الإنسان والحاسب." data-en="Clear, easy-to-use interfaces built on Human-Computer Interaction principles.">واجهات واضحة وسهلة الاستخدام مبنية على مبادئ التفاعل بين الإنسان والحاسب.</p>
               </div>
             </article>
           </div>
@@ -154,47 +168,47 @@
     <section class="section section-alt" id="skills">
       <div class="container">
         <header class="section-head reveal">
-          <span class="eyebrow">02 — المهارات</span>
-          <h2>المهارات والتخصص</h2>
-          <p class="section-sub">اختر التصنيف لاستعراض المهارات ومستوى الإتقان في كل منها.</p>
+          <span class="eyebrow" data-ar="02 — المهارات" data-en="02 — Skills">02 — المهارات</span>
+          <h2 data-ar="المهارات والتخصص" data-en="Skills &amp; Expertise">المهارات والتخصص</h2>
+          <p class="section-sub" data-ar="اختر التصنيف لاستعراض المهارات ومستوى الإتقان في كل منها." data-en="Pick a category to explore my skills and proficiency level in each.">اختر التصنيف لاستعراض المهارات ومستوى الإتقان في كل منها.</p>
         </header>
 
-        <div class="tabs reveal" role="tablist" aria-label="تصنيفات المهارات">
-          <button class="tab active" role="tab" aria-selected="true" data-tab="ai">الذكاء الاصطناعي</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="dev">البرمجة والتطوير</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="design">التصميم UI/UX</button>
-          <button class="tab" role="tab" aria-selected="false" data-tab="soft">المهارات الشخصية</button>
+        <div class="tabs reveal" role="tablist" data-ar-label="تصنيفات المهارات" data-en-label="Skill categories" aria-label="تصنيفات المهارات">
+          <button class="tab active" role="tab" aria-selected="true" data-tab="ai" data-ar="الذكاء الاصطناعي" data-en="Artificial Intelligence">الذكاء الاصطناعي</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="dev" data-ar="البرمجة والتطوير" data-en="Programming">البرمجة والتطوير</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="design" data-ar="التصميم UI/UX" data-en="UI/UX Design">التصميم UI/UX</button>
+          <button class="tab" role="tab" aria-selected="false" data-tab="soft" data-ar="المهارات الشخصية" data-en="Soft Skills">المهارات الشخصية</button>
         </div>
 
         <div class="skills-panels reveal">
           <div class="skill-panel active" data-panel="ai" role="tabpanel">
-            <div class="skill"><div class="skill-top"><span>Machine Learning</span><b>85٪</b></div><div class="bar"><i data-level="85"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>Python للبيانات (Pandas / NumPy)</span><b>85٪</b></div><div class="bar"><i data-level="85"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>Scikit-learn</span><b>80٪</b></div><div class="bar"><i data-level="80"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>تحليل وتنظيف البيانات</span><b>82٪</b></div><div class="bar"><i data-level="82"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Machine Learning</span><b>85</b></div><div class="bar"><i data-level="85"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="Python للبيانات (Pandas / NumPy)" data-en="Python for Data (Pandas / NumPy)">Python للبيانات (Pandas / NumPy)</span><b>85</b></div><div class="bar"><i data-level="85"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Scikit-learn</span><b>80</b></div><div class="bar"><i data-level="80"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="تحليل وتنظيف البيانات" data-en="Data Cleaning &amp; Analysis">تحليل وتنظيف البيانات</span><b>82</b></div><div class="bar"><i data-level="82"></i></div></div>
           </div>
           <div class="skill-panel" data-panel="dev" role="tabpanel">
-            <div class="skill"><div class="skill-top"><span>Python</span><b>88٪</b></div><div class="bar"><i data-level="88"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>Java / OOP</span><b>78٪</b></div><div class="bar"><i data-level="78"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>HTML / CSS / JavaScript</span><b>85٪</b></div><div class="bar"><i data-level="85"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>هياكل البيانات والخوارزميات</span><b>80٪</b></div><div class="bar"><i data-level="80"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>Lua (Roblox Studio)</span><b>70٪</b></div><div class="bar"><i data-level="70"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Python</span><b>88</b></div><div class="bar"><i data-level="88"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Java / OOP</span><b>78</b></div><div class="bar"><i data-level="78"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>HTML / CSS / JavaScript</span><b>85</b></div><div class="bar"><i data-level="85"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="هياكل البيانات والخوارزميات" data-en="Data Structures &amp; Algorithms">هياكل البيانات والخوارزميات</span><b>80</b></div><div class="bar"><i data-level="80"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Lua (Roblox Studio)</span><b>70</b></div><div class="bar"><i data-level="70"></i></div></div>
           </div>
           <div class="skill-panel" data-panel="design" role="tabpanel">
-            <div class="skill"><div class="skill-top"><span>تصميم واجهات المستخدم UI</span><b>88٪</b></div><div class="bar"><i data-level="88"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>تجربة المستخدم UX</span><b>85٪</b></div><div class="bar"><i data-level="85"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>Figma</span><b>88٪</b></div><div class="bar"><i data-level="88"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>التفاعل بين الإنسان والحاسب HCI</span><b>82٪</b></div><div class="bar"><i data-level="82"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="تصميم واجهات المستخدم UI" data-en="User Interface Design (UI)">تصميم واجهات المستخدم UI</span><b>88</b></div><div class="bar"><i data-level="88"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="تجربة المستخدم UX" data-en="User Experience (UX)">تجربة المستخدم UX</span><b>85</b></div><div class="bar"><i data-level="85"></i></div></div>
+            <div class="skill"><div class="skill-top"><span>Figma</span><b>88</b></div><div class="bar"><i data-level="88"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="التفاعل بين الإنسان والحاسب HCI" data-en="Human-Computer Interaction (HCI)">التفاعل بين الإنسان والحاسب HCI</span><b>82</b></div><div class="bar"><i data-level="82"></i></div></div>
           </div>
           <div class="skill-panel" data-panel="soft" role="tabpanel">
-            <div class="skill"><div class="skill-top"><span>حل المشكلات والتحليل</span><b>92٪</b></div><div class="bar"><i data-level="92"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>العمل الجماعي</span><b>90٪</b></div><div class="bar"><i data-level="90"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>التواصل والعرض</span><b>85٪</b></div><div class="bar"><i data-level="85"></i></div></div>
-            <div class="skill"><div class="skill-top"><span>التعلّم الذاتي</span><b>92٪</b></div><div class="bar"><i data-level="92"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="حل المشكلات والتحليل" data-en="Problem Solving &amp; Analysis">حل المشكلات والتحليل</span><b>92</b></div><div class="bar"><i data-level="92"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="العمل الجماعي" data-en="Teamwork">العمل الجماعي</span><b>90</b></div><div class="bar"><i data-level="90"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="التواصل والعرض" data-en="Communication &amp; Presentation">التواصل والعرض</span><b>85</b></div><div class="bar"><i data-level="85"></i></div></div>
+            <div class="skill"><div class="skill-top"><span data-ar="التعلّم الذاتي" data-en="Self-Learning">التعلّم الذاتي</span><b>92</b></div><div class="bar"><i data-level="92"></i></div></div>
           </div>
         </div>
 
-        <div class="tech-cloud reveal" aria-label="تقنيات">
+        <div class="tech-cloud reveal" data-ar-label="تقنيات" data-en-label="Technologies" aria-label="تقنيات">
           <span>Python</span><span>Machine Learning</span><span>Scikit-learn</span><span>Pandas</span><span>Java</span>
           <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Figma</span><span>UI/UX</span>
           <span>HCI</span><span>Roblox Studio</span><span>Git</span>
@@ -206,9 +220,9 @@
     <section class="section" id="projects">
       <div class="container">
         <header class="section-head reveal">
-          <span class="eyebrow">03 — المشاريع</span>
-          <h2>أبرز المشاريع</h2>
-          <p class="section-sub">دراسات حالة مختارة من أعمالي — اضغط على أي صورة لعرضها بحجم كامل.</p>
+          <span class="eyebrow" data-ar="03 — المشاريع" data-en="03 — Projects">03 — المشاريع</span>
+          <h2 data-ar="أبرز المشاريع" data-en="Featured Projects">أبرز المشاريع</h2>
+          <p class="section-sub" data-ar="دراسات حالة مختارة من أعمالي — اضغط على أي صورة لعرضها بحجم كامل." data-en="Selected case studies from my work — click any image to view it full size.">دراسات حالة مختارة من أعمالي — اضغط على أي صورة لعرضها بحجم كامل.</p>
         </header>
 
         <!-- Case 1: Azkar -->
@@ -216,26 +230,28 @@
           <div class="case-grid">
             <div class="case-main">
               <span class="case-index">01</span>
-              <span class="tag">تطبيق جوال · HCI</span>
-              <h3>تطبيق أذكار</h3>
-              <p class="case-desc">تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI).</p>
-              <span class="status wip"><span class="dot"></span> قيد العمل — التطبيق تحت التطوير حالياً</span>
+              <span class="tag" data-ar="تطبيق جوال · HCI" data-en="Mobile App · HCI">تطبيق جوال · HCI</span>
+              <h3 data-ar="تطبيق أذكار" data-en="Azkar App">تطبيق أذكار</h3>
+              <p class="case-desc"
+                 data-ar="تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI)."
+                 data-en="A smart mobile app with an interactive interface designed to deliver a smooth user experience for daily Azkar and Wird, built on Human-Computer Interaction (HCI) standards.">تطبيق محمول ذكي وواجهة تفاعلية مصممة لتوفير تجربة مستخدم سلسة للأذكار والورد اليومي، مبنية وفق معايير التفاعل بين الإنسان والحاسب (HCI).</p>
+              <span class="status wip"><span class="dot"></span> <span data-ar="قيد العمل — التطبيق تحت التطوير حالياً" data-en="Work in progress — currently under development">قيد العمل — التطبيق تحت التطوير حالياً</span></span>
               <ul class="chips"><li>Figma</li><li>UI/UX</li><li>HCI</li><li>Mobile App</li></ul>
             </div>
             <ul class="case-features">
-              <li><strong>أذكار الصباح والمساء</strong><span>قوائم منظمة مع تتبع ما تم إنجازه من الورد اليومي.</span></li>
-              <li><strong>مسبحة إلكترونية</strong><span>عدّاد دائري تفاعلي واضح مع اختيار الذكر.</span></li>
-              <li><strong>المفضلة والإعدادات</strong><span>حفظ الأذكار المفضلة، والتنبيهات، وحجم الخط.</span></li>
-              <li><strong>وضع فاتح وداكن</strong><span>راحة للعين في جميع الأوقات.</span></li>
-              <li><strong>الحساب</strong><span>تسجيل الدخول، وإنشاء حساب، واستعادة كلمة المرور.</span></li>
+              <li><strong data-ar="أذكار الصباح والمساء" data-en="Morning &amp; Evening Azkar">أذكار الصباح والمساء</strong><span data-ar="قوائم منظمة مع تتبع ما تم إنجازه من الورد اليومي." data-en="Organized lists that track your daily Wird progress.">قوائم منظمة مع تتبع ما تم إنجازه من الورد اليومي.</span></li>
+              <li><strong data-ar="مسبحة إلكترونية" data-en="Digital Tasbeeh">مسبحة إلكترونية</strong><span data-ar="عدّاد دائري تفاعلي واضح مع اختيار الذكر." data-en="A clear, interactive circular counter with dhikr selection.">عدّاد دائري تفاعلي واضح مع اختيار الذكر.</span></li>
+              <li><strong data-ar="المفضلة والإعدادات" data-en="Favorites &amp; Settings">المفضلة والإعدادات</strong><span data-ar="حفظ الأذكار المفضلة، والتنبيهات، وحجم الخط." data-en="Save favorite Azkar, reminders, and font size.">حفظ الأذكار المفضلة، والتنبيهات، وحجم الخط.</span></li>
+              <li><strong data-ar="وضع فاتح وداكن" data-en="Light &amp; Dark Mode">وضع فاتح وداكن</strong><span data-ar="راحة للعين في جميع الأوقات." data-en="Comfortable for the eyes at any time.">راحة للعين في جميع الأوقات.</span></li>
+              <li><strong data-ar="الحساب" data-en="Account">الحساب</strong><span data-ar="تسجيل الدخول، وإنشاء حساب، واستعادة كلمة المرور." data-en="Sign in, sign up, and password recovery.">تسجيل الدخول، وإنشاء حساب، واستعادة كلمة المرور.</span></li>
             </ul>
           </div>
 
           <div class="gallery gallery-3" data-gallery="azkar">
-            <span class="gallery-badge"><span class="dot"></span> قيد العمل · لقطات أولية من التصميم</span>
-            <button class="shot" type="button"><img src="assets/azkar/home.png" alt="الشاشة الرئيسية — الأذكار" loading="lazy" /></button>
-            <button class="shot" type="button"><img src="assets/azkar/counter.png" alt="أذكار الصباح — العدّاد" loading="lazy" /></button>
-            <button class="shot" type="button"><img src="assets/azkar/evening-dark.png" alt="أذكار المساء — الوضع الداكن" loading="lazy" /></button>
+            <span class="gallery-badge"><span class="dot"></span> <span data-ar="قيد العمل · لقطات أولية من التصميم" data-en="Work in progress · early design previews">قيد العمل · لقطات أولية من التصميم</span></span>
+            <button class="shot" type="button"><img src="assets/azkar/home.png" alt="الشاشة الرئيسية — الأذكار" data-ar-alt="الشاشة الرئيسية — الأذكار" data-en-alt="Home screen — Azkar" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/counter.png" alt="أذكار الصباح — العدّاد" data-ar-alt="أذكار الصباح — العدّاد" data-en-alt="Morning Azkar — counter" loading="lazy" /></button>
+            <button class="shot" type="button"><img src="assets/azkar/evening-dark.png" alt="أذكار المساء — الوضع الداكن" data-ar-alt="أذكار المساء — الوضع الداكن" data-en-alt="Evening Azkar — dark mode" loading="lazy" /></button>
           </div>
         </article>
 
@@ -245,13 +261,15 @@
             <div class="case-visual cover-2"><span dir="ltr">ghayma</span></div>
             <div class="case-main">
               <span class="case-index">02</span>
-              <span class="tag">تصميم واجهات</span>
+              <span class="tag" data-ar="تصميم واجهات" data-en="UI Design">تصميم واجهات</span>
               <h3 dir="ltr" class="ltr-title">ghayma App UI</h3>
-              <p class="case-desc">تصميم واجهات تطبيق "غيمة" بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية.</p>
+              <p class="case-desc"
+                 data-ar="تصميم واجهات تطبيق &quot;غيمة&quot; بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية."
+                 data-en="UI design for the &quot;ghayma&quot; app in a modern, clean style, focused on clear navigation, ease of use, and a consistent visual identity.">تصميم واجهات تطبيق "غيمة" بأسلوب عصري ونظيف، مع تركيز على وضوح التنقل وسهولة الاستخدام وتناسق الهوية البصرية.</p>
               <ul class="case-features compact">
-                <li><strong>شاشات التطبيق الرئيسية</strong></li>
-                <li><strong>نظام ألوان وخطوط متناسق</strong></li>
-                <li><strong>نموذج أولي تفاعلي</strong></li>
+                <li><strong data-ar="شاشات التطبيق الرئيسية" data-en="Core app screens">شاشات التطبيق الرئيسية</strong></li>
+                <li><strong data-ar="نظام ألوان وخطوط متناسق" data-en="Consistent color &amp; type system">نظام ألوان وخطوط متناسق</strong></li>
+                <li><strong data-ar="نموذج أولي تفاعلي" data-en="Interactive prototype">نموذج أولي تفاعلي</strong></li>
               </ul>
               <ul class="chips"><li>Figma</li><li>UI Design</li><li>Prototyping</li></ul>
             </div>
@@ -262,13 +280,15 @@
             <div class="case-visual cover-4"><span dir="ltr">3D</span></div>
             <div class="case-main">
               <span class="case-index">03</span>
-              <span class="tag">بيئة ثلاثية الأبعاد</span>
+              <span class="tag" data-ar="بيئة ثلاثية الأبعاد" data-en="3D Environment">بيئة ثلاثية الأبعاد</span>
               <h3 dir="ltr" class="ltr-title">Roblox 3D Environment</h3>
-              <p class="case-desc">بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة.</p>
+              <p class="case-desc"
+                 data-ar="بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة."
+                 data-en="An interactive 3D environment built on Roblox, covering world and asset design and scripting in-game interactions.">بناء بيئة ثلاثية الأبعاد تفاعلية على منصة Roblox، تشمل تصميم العالم والعناصر وبرمجة التفاعلات داخل اللعبة.</p>
               <ul class="case-features compact">
-                <li><strong>تصميم عالم ثلاثي الأبعاد</strong></li>
-                <li><strong>برمجة التفاعلات بلغة Lua</strong></li>
-                <li><strong>تجربة استكشاف للاعب</strong></li>
+                <li><strong data-ar="تصميم عالم ثلاثي الأبعاد" data-en="3D world design">تصميم عالم ثلاثي الأبعاد</strong></li>
+                <li><strong data-ar="برمجة التفاعلات بلغة Lua" data-en="Interactions scripted in Lua">برمجة التفاعلات بلغة Lua</strong></li>
+                <li><strong data-ar="تجربة استكشاف للاعب" data-en="Player exploration experience">تجربة استكشاف للاعب</strong></li>
               </ul>
               <ul class="chips"><li>Roblox Studio</li><li>Lua</li><li>3D Design</li></ul>
             </div>
@@ -276,13 +296,14 @@
         </div>
       </div>
     </section>
+
     <!-- ===== Contact ===== -->
     <section class="section section-dark" id="contact">
       <div class="container">
         <header class="section-head reveal">
-          <span class="eyebrow">04 — التواصل</span>
-          <h2>لنعمل معاً</h2>
-          <p class="section-sub">لديك فكرة أو فرصة تدريب أو تعاون؟ اكتب رسالتك وستصلني مباشرة.</p>
+          <span class="eyebrow" data-ar="04 — التواصل" data-en="04 — Contact">04 — التواصل</span>
+          <h2 data-ar="لنعمل معاً" data-en="Let's work together">لنعمل معاً</h2>
+          <p class="section-sub" data-ar="لديك فكرة أو فرصة تدريب أو تعاون؟ اكتب رسالتك وستصلني مباشرة." data-en="Have an idea, an internship, or a collaboration in mind? Send a message and it will reach me directly.">لديك فكرة أو فرصة تدريب أو تعاون؟ اكتب رسالتك وستصلني مباشرة.</p>
         </header>
 
         <div class="contact-grid">
@@ -292,54 +313,54 @@
                 <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2.2 6.5 6.6 2 12 2a9.9 9.9 0 0 1 9.9 9.9c0 5.5-4.4 9.9-9.9 9.9Z"/></svg>
               </div>
               <div>
-                <span>واتساب</span>
-                <strong>محادثة مباشرة</strong>
+                <span data-ar="واتساب" data-en="WhatsApp">واتساب</span>
+                <strong data-ar="محادثة مباشرة" data-en="Direct chat">محادثة مباشرة</strong>
               </div>
-              <em>←</em>
+              <em class="arrow" aria-hidden="true">←</em>
             </a>
 
             <div class="contact-card">
-              <a class="c-link" href="mailto:emadfaisalalsulami@gmail.com" aria-label="مراسلة عبر البريد"></a>
+              <a class="c-link" href="mailto:emadfaisalalsulami@gmail.com" data-ar-label="مراسلة عبر البريد" data-en-label="Send an email" aria-label="مراسلة عبر البريد"></a>
               <div class="c-icon">
                 <svg viewBox="0 0 24 24"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.2-8 5-8-5V6l8 5 8-5v2.2Z"/></svg>
               </div>
               <div>
-                <span>البريد الإلكتروني</span>
+                <span data-ar="البريد الإلكتروني" data-en="Email">البريد الإلكتروني</span>
                 <strong dir="ltr" class="email-text">emadfaisalalsulami@gmail.com</strong>
               </div>
-              <button class="copy-btn" id="copyEmail" type="button" aria-label="نسخ البريد">نسخ</button>
+              <button class="copy-btn" id="copyEmail" type="button" data-ar="نسخ" data-en="Copy" data-ar-label="نسخ البريد" data-en-label="Copy email" aria-label="نسخ البريد">نسخ</button>
             </div>
           </div>
 
           <form class="contact-form reveal" id="contactForm" novalidate>
-            <h3>أرسل رسالة</h3>
+            <h3 data-ar="أرسل رسالة" data-en="Send a message">أرسل رسالة</h3>
             <div class="field-row">
               <div class="field">
-                <label for="name">الاسم</label>
-                <input id="name" name="name" type="text" placeholder="اكتب اسمك" required />
+                <label for="name" data-ar="الاسم" data-en="Name">الاسم</label>
+                <input id="name" name="name" type="text" placeholder="اكتب اسمك" data-ar-placeholder="اكتب اسمك" data-en-placeholder="Your name" required />
               </div>
               <div class="field">
-                <label for="reply">بريدك أو رقمك <small>(للرد عليك)</small></label>
+                <label for="reply"><span data-ar="بريدك أو رقمك" data-en="Your email or phone">بريدك أو رقمك</span> <small data-ar="(للرد عليك)" data-en="(so I can reply)">(للرد عليك)</small></label>
                 <input id="reply" name="reply" type="text" placeholder="example@mail.com" />
               </div>
             </div>
             <div class="field">
-              <label for="subject">الموضوع</label>
+              <label for="subject" data-ar="الموضوع" data-en="Subject">الموضوع</label>
               <select id="subject" name="subject">
-                <option>فرصة تدريب</option>
-                <option>فرصة عمل</option>
-                <option>تعاون في مشروع</option>
-                <option>استفسار عام</option>
+                <option value="فرصة تدريب" data-ar="فرصة تدريب" data-en="Internship opportunity">فرصة تدريب</option>
+                <option value="فرصة عمل" data-ar="فرصة عمل" data-en="Job opportunity">فرصة عمل</option>
+                <option value="تعاون في مشروع" data-ar="تعاون في مشروع" data-en="Project collaboration">تعاون في مشروع</option>
+                <option value="استفسار عام" data-ar="استفسار عام" data-en="General inquiry">استفسار عام</option>
               </select>
             </div>
             <div class="field">
-              <label for="message">الرسالة</label>
-              <textarea id="message" name="message" rows="4" placeholder="اكتب رسالتك هنا..." required></textarea>
+              <label for="message" data-ar="الرسالة" data-en="Message">الرسالة</label>
+              <textarea id="message" name="message" rows="4" placeholder="اكتب رسالتك هنا..." data-ar-placeholder="اكتب رسالتك هنا..." data-en-placeholder="Write your message here..." required></textarea>
             </div>
             <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
             <p class="form-note" id="formNote" role="status"></p>
             <button type="submit" class="btn btn-light btn-send" id="sendBtn">
-              <span class="send-label">إرسال الرسالة</span>
+              <span class="send-label" data-ar="إرسال الرسالة" data-en="Send message">إرسال الرسالة</span>
               <span class="spinner" aria-hidden="true"></span>
             </button>
           </form>
@@ -350,25 +371,25 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>© <span id="year"></span> عماد فيصل السلمي. جميع الحقوق محفوظة.</p>
-      <a href="#hero" class="to-top-link">العودة للأعلى ↑</a>
+      <p>© <span id="year"></span> <span data-ar="عماد فيصل السلمي. جميع الحقوق محفوظة." data-en="Emad Faisal Al-Sulami. All rights reserved.">عماد فيصل السلمي. جميع الحقوق محفوظة.</span></p>
+      <a href="#hero" class="to-top-link" data-ar="العودة للأعلى ↑" data-en="Back to top ↑">العودة للأعلى ↑</a>
     </div>
   </footer>
 
   <!-- Floating WhatsApp -->
-  <a href="https://wa.me/966552907656" class="wa-float" target="_blank" rel="noopener" aria-label="تواصل عبر واتساب">
+  <a href="https://wa.me/966552907656" class="wa-float" target="_blank" rel="noopener" data-ar-label="تواصل عبر واتساب" data-en-label="Chat on WhatsApp" aria-label="تواصل عبر واتساب">
     <svg viewBox="0 0 24 24"><path d="M20.5 3.5A11.8 11.8 0 0 0 12 0C5.4 0 .1 5.3.1 11.9c0 2.1.6 4.2 1.6 6L0 24l6.3-1.6a11.9 11.9 0 0 0 5.7 1.4c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.4-8.4ZM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4a9.9 9.9 0 0 1-1.5-5.3C2.2 6.5 6.6 2 12 2a9.9 9.9 0 0 1 9.9 9.9c0 5.5-4.4 9.9-9.9 9.9Zm5.4-7.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1l-.9 1.2c-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5 2.5 1 3 .8 3.6.7.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4Z"/></svg>
   </a>
 
   <!-- Lightbox -->
-  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="عرض الصورة">
-    <button class="lb-close" data-lb="close" aria-label="إغلاق">×</button>
-    <button class="lb-nav lb-prev" data-lb="prev" aria-label="السابق">›</button>
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" data-ar-label="عرض الصورة" data-en-label="Image viewer" aria-label="عرض الصورة">
+    <button class="lb-close" data-lb="close" data-ar-label="إغلاق" data-en-label="Close" aria-label="إغلاق">×</button>
+    <button class="lb-nav lb-prev" data-lb="prev" data-ar="›" data-en="‹" data-ar-label="السابق" data-en-label="Previous" aria-label="السابق">›</button>
     <figure>
       <img id="lbImg" alt="" />
       <figcaption id="lbCap"></figcaption>
     </figure>
-    <button class="lb-nav lb-next" data-lb="next" aria-label="التالي">‹</button>
+    <button class="lb-nav lb-next" data-lb="next" data-ar="‹" data-en="›" data-ar-label="التالي" data-en-label="Next" aria-label="التالي">‹</button>
   </div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -385,6 +406,49 @@
     };
     const $ = (s, c = document) => c.querySelector(s);
     const $$ = (s, c = document) => Array.from(c.querySelectorAll(s));
+
+    /* ================= Language (AR / EN) ================= */
+    const T = {
+      ar: {
+        phrases: ['طالب علوم حاسب وذكاء اصطناعي', 'Computer Science & AI Student', 'مطوّر تطبيقات ومصمم واجهات UI/UX'],
+        fillIn: 'فضلاً اكتب اسمك ورسالتك أولاً.',
+        sent: '✓ تم إرسال رسالتك بنجاح، سأتواصل معك قريباً. شكراً لك!',
+        sentToast: 'تم الإرسال ✓',
+        failed: 'تعذّر الإرسال حالياً، حاول مرة أخرى بعد قليل.',
+        copied: 'تم نسخ البريد الإلكتروني ✓',
+        selected: 'تم تحديد البريد — اضغط نسخ',
+        arrow: '←'
+      },
+      en: {
+        phrases: ['Computer Science & AI Student', 'App Developer & UI/UX Designer', 'Machine Learning Enthusiast'],
+        fillIn: 'Please enter your name and message first.',
+        sent: '✓ Your message was sent successfully. I will get back to you soon. Thank you!',
+        sentToast: 'Message sent ✓',
+        failed: 'Could not send right now, please try again shortly.',
+        copied: 'Email copied ✓',
+        selected: 'Email selected — press copy',
+        arrow: '→'
+      }
+    };
+    let lang = document.documentElement.lang === 'en' ? 'en' : 'ar';
+    const t = k => T[lang][k];
+    const num = n => lang === 'ar' ? String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]) : String(n);
+
+    function applyLang(next, save) {
+      lang = next;
+      const html = document.documentElement;
+      html.lang = lang; html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      $$('[data-' + lang + ']').forEach(el => { el.innerHTML = el.getAttribute('data-' + lang); });
+      $$('[data-' + lang + '-label]').forEach(el => el.setAttribute('aria-label', el.getAttribute('data-' + lang + '-label')));
+      $$('[data-' + lang + '-placeholder]').forEach(el => el.setAttribute('placeholder', el.getAttribute('data-' + lang + '-placeholder')));
+      $$('[data-' + lang + '-alt]').forEach(el => el.setAttribute('alt', el.getAttribute('data-' + lang + '-alt')));
+      $$('.arrow').forEach(el => { el.textContent = t('arrow'); });
+      $$('.skill-top b').forEach(b => { const v = b.parentNode.parentNode.querySelector('.bar i').dataset.level; b.textContent = v + (lang === 'ar' ? '٪' : '%'); });
+      $$('.counter.done').forEach(el => { el.textContent = num(el.dataset.target) + (el.dataset.pct ? (lang === 'ar' ? '٪' : '%') : '+'); });
+      if (note.className.includes('ok')) note.textContent = t('sent');
+      restartTyping();
+      if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
+    }
 
     /* Year */
     $('#year').textContent = new Date().getFullYear();
@@ -417,31 +481,33 @@
     addEventListener('scroll', onScroll, { passive: true }); onScroll();
 
     /* Typing effect */
-    const phrases = ['طالب علوم حاسب وذكاء اصطناعي', 'Computer Science & AI Student', 'مطوّر تطبيقات ومصمم واجهات UI/UX'];
     const typed = $('#typed');
     const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) { typed.textContent = phrases[0]; }
-    else {
+    let typeTimer = null;
+    function restartTyping() {
+      clearTimeout(typeTimer);
+      const phrases = t('phrases');
+      if (reduce) { typed.textContent = phrases[0]; return; }
       let pi = 0, ci = 0, del = false;
       (function tick() {
         const p = phrases[pi];
         typed.textContent = p.slice(0, ci);
-        if (!del && ci < p.length) { ci++; setTimeout(tick, 70); }
-        else if (!del) { del = true; setTimeout(tick, 1600); }
-        else if (ci > 0) { ci--; setTimeout(tick, 35); }
-        else { del = false; pi = (pi + 1) % phrases.length; setTimeout(tick, 300); }
+        if (!del && ci < p.length) { ci++; typeTimer = setTimeout(tick, 70); }
+        else if (!del) { del = true; typeTimer = setTimeout(tick, 1600); }
+        else if (ci > 0) { ci--; typeTimer = setTimeout(tick, 35); }
+        else { del = false; pi = (pi + 1) % phrases.length; typeTimer = setTimeout(tick, 300); }
       })();
     }
 
     /* Counters */
-    const toArabic = n => String(n).replace(/\d/g, d => '٠١٢٣٤٥٦٧٨٩'[d]);
     function runCounter(el) {
-      const target = +el.dataset.target, suffix = el.dataset.suffix || '+';
+      const target = +el.dataset.target;
       const start = performance.now(), dur = 1400;
-      (function step(t) {
-        const k = Math.min((t - start) / dur, 1), e = 1 - Math.pow(1 - k, 3);
-        el.textContent = toArabic(Math.round(target * e)) + (k === 1 ? suffix : '');
-        if (k < 1) requestAnimationFrame(step);
+      (function step(tm) {
+        const k = Math.min((tm - start) / dur, 1), e = 1 - Math.pow(1 - k, 3);
+        const suffix = el.dataset.pct ? (lang === 'ar' ? '٪' : '%') : '+';
+        el.textContent = num(Math.round(target * e)) + (k === 1 ? suffix : '');
+        if (k < 1) requestAnimationFrame(step); else el.classList.add('done');
       })(start);
     }
 
@@ -464,7 +530,7 @@
 
     /* Skills tabs */
     $$('.tab').forEach(tab => tab.addEventListener('click', () => {
-      $$('.tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+      $$('.tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected', 'false'); });
       tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
       $$('.skill-panel').forEach(p => {
         const on = p.dataset.panel === tab.dataset.tab;
@@ -481,7 +547,7 @@
       cur = (i + shots.length) % shots.length;
       const img = $('img', shots[cur]);
       lbImg.src = img.src; lbImg.alt = img.alt;
-      lbCap.textContent = img.alt + '  (' + toArabic(cur + 1) + ' / ' + toArabic(shots.length) + ')';
+      lbCap.textContent = img.alt + '  (' + num(cur + 1) + ' / ' + num(shots.length) + ')';
     }
     function openLb(group, i) {
       shots = $$('.shot', group); lbLast = document.activeElement;
@@ -503,9 +569,10 @@
     });
     addEventListener('keydown', e => {
       if (!lb.classList.contains('open')) return;
+      const fwd = lang === 'ar' ? 'ArrowLeft' : 'ArrowRight', back = lang === 'ar' ? 'ArrowRight' : 'ArrowLeft';
       if (e.key === 'Escape') closeLb();
-      if (e.key === 'ArrowLeft') showShot(cur + 1);
-      if (e.key === 'ArrowRight') showShot(cur - 1);
+      if (e.key === fwd) showShot(cur + 1);
+      if (e.key === back) showShot(cur - 1);
     });
 
     /* Toast */
@@ -518,11 +585,11 @@
     /* Copy email */
     $('#copyEmail').addEventListener('click', async e => {
       e.preventDefault(); e.stopPropagation();
-      try { await navigator.clipboard.writeText(EMAIL); showToast('تم نسخ البريد الإلكتروني ✓'); }
+      try { await navigator.clipboard.writeText(EMAIL); showToast(t('copied')); }
       catch (_) {
         const r = document.createRange(); r.selectNodeContents($('.email-text'));
         const s = getSelection(); s.removeAllRanges(); s.addRange(r);
-        showToast('تم تحديد البريد — اضغط نسخ');
+        showToast(t('selected'));
       }
     });
 
@@ -535,11 +602,11 @@
       const msg = form.message.value.trim(), subj = form.subject.value;
       form.name.classList.toggle('invalid', !name);
       form.message.classList.toggle('invalid', !msg);
-      if (!name || !msg) { note.textContent = 'فضلاً اكتب اسمك ورسالتك أولاً.'; note.className = 'form-note err'; return; }
+      if (!name || !msg) { note.textContent = t('fillIn'); note.className = 'form-note err'; return; }
 
       sendBtn.disabled = true; sendBtn.classList.add('loading'); note.textContent = ''; note.className = 'form-note';
       const text = '📩 رسالة جديدة من موقعك\n\nالاسم: ' + name + (reply ? '\nللتواصل: ' + reply : '') +
-                   '\nالموضوع: ' + subj + '\n\n' + msg;
+                   '\nالموضوع: ' + subj + '\nلغة الزائر: ' + (lang === 'ar' ? 'العربية' : 'English') + '\n\n' + msg;
       const jobs = [];
 
       if (CONFIG.callmebotKey) {
@@ -551,7 +618,8 @@
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({ _subject: 'رسالة من موقعك: ' + subj + ' — ' + name, _template: 'table', _captcha: 'false',
-                               'الاسم': name, 'للتواصل': reply || '—', 'الموضوع': subj, 'الرسالة': msg })
+                               'الاسم': name, 'للتواصل': reply || '—', 'الموضوع': subj,
+                               'لغة الزائر': lang === 'ar' ? 'العربية' : 'English', 'الرسالة': msg })
       }).then(r => r.ok));
 
       const results = await Promise.allSettled(jobs);
@@ -559,14 +627,18 @@
       sendBtn.disabled = false; sendBtn.classList.remove('loading');
       if (ok) {
         form.reset();
-        note.textContent = '✓ تم إرسال رسالتك بنجاح، سأتواصل معك قريباً. شكراً لك!';
+        note.textContent = t('sent');
         note.className = 'form-note ok';
-        showToast('تم الإرسال ✓');
+        showToast(t('sentToast'));
       } else {
-        note.textContent = 'تعذّر الإرسال حالياً، حاول مرة أخرى بعد قليل.';
+        note.textContent = t('failed');
         note.className = 'form-note err';
       }
     });
+
+    /* Language switch button */
+    $('#langSwitch').addEventListener('click', () => applyLang(lang === 'ar' ? 'en' : 'ar', true));
+    applyLang(lang, false);
   })();
   </script>
 </body>
