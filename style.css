@@ -484,14 +484,14 @@ p { margin: 0 0 1em; }
   margin-top: 32px; padding: 22px; border-radius: 18px;
   background: linear-gradient(180deg, var(--bg-alt), #f1edfa);
   border: 1px solid var(--line);
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  display: grid; grid-template-columns: repeat(5, minmax(0, 150px)); justify-content: center; gap: 18px;
 }
 .shot {
   padding: 0; border: 1px solid var(--line); background: #fff; border-radius: 16px; overflow: hidden;
   box-shadow: 0 6px 18px rgba(23, 19, 33, .08); aspect-ratio: 78 / 169;
   transition: transform .35s var(--ease), box-shadow .35s var(--ease), border-color .35s;
 }
-.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; image-rendering: -webkit-optimize-contrast; }
 .shot:hover, .shot:focus-visible { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--purple); }
 
 .case-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -513,7 +513,7 @@ p { margin: 0 0 1em; }
 }
 .lightbox.open { opacity: 1; visibility: visible; }
 .lightbox figure { margin: 0; display: flex; flex-direction: column; align-items: center; gap: 12px; max-height: 100%; }
-.lightbox img { max-height: calc(100vh - 110px); max-width: min(420px, 80vw); border-radius: 22px; background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+.lightbox img { max-height: calc(100vh - 110px); max-width: min(300px, 78vw); border-radius: 22px; background: #fff; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
 .lightbox figcaption { color: #d6d2e3; font-size: .95rem; }
 .lb-close, .lb-nav {
   border: 1px solid rgba(255,255,255,.25); background: rgba(255,255,255,.08); color: #fff;
@@ -536,16 +536,15 @@ p { margin: 0 0 1em; }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1024px) {
-  .gallery { grid-template-columns: repeat(4, 1fr); }
 }
 @media (max-width: 860px) {
   .case { padding: 24px; }
   .case-grid, .case-pair { grid-template-columns: 1fr; gap: 24px; }
-  .gallery { grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 14px; }
+  .gallery { grid-template-columns: repeat(3, minmax(0, 150px)); gap: 12px; padding: 14px; }
 }
 @media (max-width: 600px) {
   .case { padding: 20px; border-radius: 18px; }
-  .gallery { grid-template-columns: repeat(2, 1fr); }
+  .gallery { grid-template-columns: repeat(2, minmax(0, 140px)); }
   .field-row { grid-template-columns: 1fr; gap: 0; }
   .lb-nav { position: absolute; bottom: 24px; }
   .lb-prev { right: 24px; } .lb-next { left: 24px; }
