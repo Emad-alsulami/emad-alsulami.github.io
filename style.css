@@ -515,6 +515,9 @@ p { margin: 0 0 1em; }
 @keyframes pulse-o { 70% { box-shadow: 0 0 0 8px rgba(249,115,22,0); } 100% { box-shadow: 0 0 0 0 rgba(249,115,22,0); } }
 .status.wip { background: #fff7ed; color: #c2410c; border-color: #fed7aa; }
 
+.gallery.gallery-3 { grid-template-columns: repeat(3, minmax(0, 250px)); gap: 28px; }
+.gallery-3 .shot { aspect-ratio: 361 / 789; border-radius: 22px; }
+
 /* ---------- Lightbox ---------- */
 .lightbox {
   position: fixed; inset: 0; z-index: 110; display: flex; align-items: center; justify-content: center; gap: 16px;
@@ -556,6 +559,9 @@ p { margin: 0 0 1em; }
   .case { padding: 20px; border-radius: 18px; }
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .gallery .shot:last-child:nth-of-type(odd) { grid-column: 1 / -1; justify-self: center; width: calc(50% - 6px); }
+  .gallery.gallery-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .gallery.gallery-3 .shot:last-child { grid-column: auto; width: auto; }
+  .gallery-3 .shot { border-radius: 12px; }
   .field-row { grid-template-columns: 1fr; gap: 0; }
   .lb-nav { position: absolute; bottom: 24px; }
   .lb-prev { right: 24px; } .lb-next { left: 24px; }
