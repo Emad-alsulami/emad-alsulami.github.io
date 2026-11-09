@@ -303,6 +303,19 @@ p { margin: 0 0 1em; }
 .cover-5 { background: linear-gradient(135deg, #5b44a3, #171321); }
 .cover-6 { background: linear-gradient(135deg, #171321, #7759c2 70%, #c9b8f2); }
 
+.cover-azkar { background: #eef4ee; }
+.cover-azkar::before { display: none; }
+.cover-azkar img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .5s var(--ease); }
+.project:hover .cover-azkar img { transform: scale(1.05); }
+.modal-cover.cover-azkar { background: #eef4ee url("assets/azkar-app.png") center / cover no-repeat; height: 200px; }
+.project-cover .cover-title {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  font-size: 2.6rem; font-weight: 700; color: rgba(255, 255, 255, .92); letter-spacing: 1px;
+  font-family: system-ui, sans-serif;
+}
+.ltr-title { text-align: right; }
+.en-sub { color: var(--muted); font-size: .95rem; }
+
 .project-body { padding: 22px 22px 24px; display: flex; flex-direction: column; flex: 1; }
 .project-body h3 { font-size: 1.15rem; margin: .7rem 0 .35rem; }
 .project-body p { color: var(--muted); font-size: .95rem; flex: 1; }
