@@ -307,7 +307,6 @@ p { margin: 0 0 1em; }
 .cover-azkar::before { display: none; }
 .cover-azkar img { width: 100%; height: 100%; object-fit: cover; object-position: center; transition: transform .5s var(--ease); }
 .project:hover .cover-azkar img { transform: scale(1.05); }
-.modal-cover.cover-azkar { background: #eef4ee url("assets/azkar-app.png") center / cover no-repeat; height: 200px; }
 .project-cover .cover-title {
   position: absolute; inset: 0; display: grid; place-items: center;
   font-size: 2.6rem; font-weight: 700; color: rgba(255, 255, 255, .92); letter-spacing: 1px;
