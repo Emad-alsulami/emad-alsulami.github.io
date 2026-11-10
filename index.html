@@ -294,6 +294,30 @@
             </div>
           </article>
         </div>
+
+        <!-- Case 4: Smart License Plate Verification -->
+        <article class="case reveal" id="plate-verification">
+          <div class="case-grid">
+            <div class="case-main">
+              <span class="case-index">04</span>
+              <span class="tag" data-ar="ذكاء اصطناعي · رؤية حاسوبية" data-en="AI · Computer Vision">ذكاء اصطناعي · رؤية حاسوبية</span>
+              <h3 data-ar="نظام التحقق الذكي من لوحات المركبات" data-en="Smart License Plate Verification System">نظام التحقق الذكي من لوحات المركبات</h3>
+              <p class="case-desc"
+                 data-ar="نظام يقرأ لوحة السيارة من الصورة بتقنية OCR، ويتحقق من صيغتها بـ Regex، ثم يقارنها برمز QR مشفّر بـ XOR وبالسجل الرسمي، ويرسل تنبيهاً للمرور عند اكتشاف لوحة مبدّلة أو مزوّرة. مشروع جماعي لمقرر AI3101."
+                 data-en="A system that reads a vehicle's plate from an image with OCR, validates it with Regex, then compares it against an XOR-encrypted QR code and the official record, alerting traffic authorities when a swapped or forged plate is detected. Group project for AI3101.">نظام يقرأ لوحة السيارة من الصورة بتقنية OCR، ويتحقق من صيغتها بـ Regex، ثم يقارنها برمز QR مشفّر بـ XOR وبالسجل الرسمي، ويرسل تنبيهاً للمرور عند اكتشاف لوحة مبدّلة أو مزوّرة. مشروع جماعي لمقرر AI3101.</p>
+              <ul class="chips"><li>Python</li><li>OpenCV</li><li>EasyOCR</li><li>Tesseract</li><li>Regex</li><li>XOR</li><li>QR</li></ul>
+              <a href="plate-verification/" class="btn btn-dark" style="margin-top:14px">
+                <span data-ar="جرّب العرض التفاعلي" data-en="Try the interactive demo">جرّب العرض التفاعلي</span>
+              </a>
+            </div>
+            <ul class="case-features">
+              <li><strong data-ar="قراءة اللوحة (OCR)" data-en="Plate reading (OCR)">قراءة اللوحة (OCR)</strong><span data-ar="قص منطقة اللوحة ومعالجتها ثم قراءتها بـ Tesseract و EasyOCR." data-en="Crops and preprocesses the plate, then reads it with Tesseract and EasyOCR.">قص منطقة اللوحة ومعالجتها ثم قراءتها بـ Tesseract و EasyOCR.</span></li>
+              <li><strong data-ar="تنظيف وتحقق بـ Regex" data-en="Regex validation">تنظيف وتحقق بـ Regex</strong><span data-ar="يرفض أي قراءة لا تطابق صيغة اللوحة السعودية." data-en="Rejects any reading that doesn't match the Saudi plate format.">يرفض أي قراءة لا تطابق صيغة اللوحة السعودية.</span></li>
+              <li><strong data-ar="تشفير XOR ورمز QR" data-en="XOR encryption &amp; QR">تشفير XOR ورمز QR</strong><span data-ar="هوية رقمية مشفّرة لكل مركبة." data-en="An encrypted digital identity for each vehicle.">هوية رقمية مشفّرة لكل مركبة.</span></li>
+              <li><strong data-ar="مقارنة ثلاثية وتنبيه" data-en="Three-way check &amp; alert">مقارنة ثلاثية وتنبيه</strong><span data-ar="الصورة والـ QR والسجل الرسمي، وأي اختلاف يرسل تنبيهاً فورياً." data-en="Image, QR and official record — any mismatch triggers an instant alert.">الصورة والـ QR والسجل الرسمي، وأي اختلاف يرسل تنبيهاً فورياً.</span></li>
+            </ul>
+          </div>
+        </article>
       </div>
     </section>
 
