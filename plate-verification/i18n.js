@@ -200,7 +200,7 @@ function apply(next){
   textItems.forEach(it => { it.n.nodeValue = it[lang]; });
   attrItems.forEach(it => it.el.setAttribute(it.a, it[lang]));
   const sw = document.getElementById('langSwitch');
-  if(sw){ sw.querySelector('span').textContent = lang === 'ar' ? 'English' : 'العربية'; sw.setAttribute('aria-label', lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'); }
+  if(sw){ sw.querySelector('.lang-label').textContent = lang === 'ar' ? 'English' : 'عربي'; sw.setAttribute('aria-label', lang === 'ar' ? 'Switch to English' : 'التبديل إلى العربية'); }
 }
 if(saved === 'en') apply('en');
 
