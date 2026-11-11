@@ -8,10 +8,10 @@ const PV = window.PV;
 const KEY = 'UQU_AI3101';
 const REASON = {
   ok:      {t:'مصرّح: لوحة الـ QR مسجّلة ضمن المركبات المصرّح بها', c:'var(--green)'},
-  ok_ocr:  {t:'مصرّح عبر OCR: الـ QR غير مقروء، واللوحة المقروءة مسجّلة كمصرّح بها', c:'#7fe3b4'},
+  ok_ocr:  {t:'مصرّح عبر OCR: الـ QR غير مقروء، واللوحة المقروءة مسجّلة كمصرّح بها', c:'#5BB98F'},
   unauth:  {t:'غير مصرّح: لوحة الـ QR مسجّلة كمركبة غير مصرّح بها',  c:'var(--red)'},
-  conflict:{t:'OCR قرأ لوحة سعودية مختلفة عن لوحة الـ QR',          c:'#ff8a3d'},
-  nodb:    {t:'لوحة الـ QR غير موجودة في السجل',                     c:'#c06bff'},
+  conflict:{t:'OCR قرأ لوحة سعودية مختلفة عن لوحة الـ QR',          c:'#E0782F'},
+  nodb:    {t:'لوحة الـ QR غير موجودة في السجل',                     c:'#8A9095'},
   noqr:    {t:'تعذّرت قراءة الـ QR من الصورة',                        c:'var(--amber)'}
 };
 let D = null, dbByPlate = new Map();
@@ -47,7 +47,7 @@ function renderMetrics(){
   requestAnimationFrame(() => setTimeout(() => $$('#dsMetrics .bar i').forEach(i => i.style.width = i.dataset.w+'%'), 80));
 
   $('#dsCm').innerHTML = `
-    <div></div><div class="h">قرار النظام: سليمة ✓</div><div class="h">قرار النظام: تنبيه 🚨</div>
+    <div></div><div class="h">قرار النظام: سليمة</div><div class="h">قرار النظام: تنبيه</div>
     <div class="rh">فعلياً سليمة<br>(1–800)</div>
     <div class="cell good"><b>${tp}</b><span>تمرير صحيح</span></div>
     <div class="cell badc"><b>${fn}</b><span>إنذار كاذب</span></div>
@@ -88,8 +88,8 @@ function renderGallery(){
     const wrong = c.pr!==c.g;
     return `<button class="car${wrong?' wrong':''}" data-i="${c.i}" aria-label="سيارة ${c.i}">
       <img src="thumb/${c.i}.jpg" loading="lazy" alt="">
-      <span class="id">#${c.i}</span>${wrong?'<span class="wr">خطأ</span>':''}
-      <span class="pred">${c.pr ? '<span class="ok">✓ سليمة</span>' : '<span class="al">🚨 تنبيه</span>'}<span style="color:var(--dim)">${c.g?'1–800':'801+'}</span></span></button>`;
+      <span class="id">#${c.i}</span>${wrong?'<span class="wr">قرار خاطئ</span>':''}
+      <span class="pred">${c.pr ? '<span class="ok">سليمة</span>' : '<span class="al">تنبيه</span>'}<span style="opacity:.7;font-family:var(--plate)">${c.g?'1–800':'801–1000'}</span></span></button>`;
   }).join('') : '<p style="grid-column:1/-1;text-align:center;color:var(--muted)">لا توجد نتائج</p>';
   pager($('#dsPager'), gPage, pages, gList.length, p => { gPage = p; renderGallery(); });
 }
@@ -143,7 +143,7 @@ function openCar(i){
   $('#mTitle').textContent = `السيارة #${i}`;
   $('#mTruth').innerHTML = c.g ? '<span class="badge ok">التصنيف الفعلي: سليمة</span>' : '<span class="badge bad">التصنيف الفعلي: غير مصرّح</span>';
   $('#mImg').src = `img/${i}.jpg`;
-  $('#mSvg').innerHTML = rect(c.qb, '#4fd6e8') + rect(c.ob, '#ffb547');
+  $('#mSvg').innerHTML = rect(c.qb, '#F2B705') + rect(c.ob, '#19C27A');
   $('#mLiveStatus').textContent = '';
   const found = c.f>=0 ? D.db[c.f] : null;
   const s = [];
@@ -162,7 +162,7 @@ function openCar(i){
   v.className = 'verdict ' + (c.pr ? 'ok' : 'bad');
   v.style.animation = 'none';
   v.innerHTML = `<div class="vi">${c.pr ? '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>' : '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>'}</div>
-    <div><h4>${c.pr ? 'قرار النظام: سليمة' : 'قرار النظام: تنبيه للمرور'}</h4><p>${REASON[c.r].t} · ${right ? '<b style="color:var(--green)">قرار صحيح ✓</b>' : '<b style="color:var(--amber)">قرار خاطئ ✗</b>'}</p></div>`;
+    <div><h4>${c.pr ? 'قرار النظام: سليمة' : 'قرار النظام: تنبيه للمرور'}</h4><p>${REASON[c.r].t} · ${right ? '<b style="color:var(--green)">قرار صحيح</b>' : '<b style="color:#7A5B00">قرار خاطئ</b>'}</p></div>`;
   modal.classList.add('open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden';
 }
 function closeModal(){ modal.classList.remove('open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }

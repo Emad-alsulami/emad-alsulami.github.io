@@ -104,7 +104,7 @@ function renderSteps(){
 function setStep(i, cls, txt){ state[i] = {cls, txt}; renderSteps(); }
 function boxes(qb, ob){
   const r = (b, c) => b ? `<rect x="${b[0]}" y="${b[1]}" width="${b[2]}" height="${b[3]}" fill="none" stroke="${c}" stroke-width="3" vector-effect="non-scaling-stroke"/>` : '';
-  $('#ckSvg').innerHTML = r(qb, '#4fd6e8') + r(ob, '#ffb547');
+  $('#ckSvg').innerHTML = r(qb, '#F2B705') + r(ob, '#19C27A');
 }
 const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M5 12l5 5L20 7"/></svg>';
 const ICON_BAD = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M6 6l12 12M18 6L6 18"/></svg>';
@@ -157,7 +157,7 @@ async function run(file){
     if(plate){
       const hit = ocr.find(o => sim(o.t, plate) >= .8);
       const bad = sa.find(o => sim(o.t, plate) < .5);
-      if(hit){ ocrBox = hit.box; setStep(3, 'ok', `قرأ OCR <span class="mono">${hit.t}</span> وهي تطابق لوحة الـ QR ✓`); }
+      if(hit){ ocrBox = hit.box; setStep(3, 'ok', `قرأ OCR <span class="mono">${hit.t}</span> وهي تطابق لوحة الـ QR`); }
       else if(bad){ conflict = bad.t; ocrBox = bad.box; setStep(3, 'bad', `قرأ OCR لوحة مختلفة: <span class="mono">${bad.t}</span> ≠ <span class="mono">${plate}</span>`); }
       else setStep(3, 'skip', 'ما قرأ OCR لوحة سعودية واضحة، فاعتمدنا على الـ QR والسجل.');
     }else{
@@ -200,8 +200,8 @@ async function run(file){
   if(known.length){
     const k = $('#ckKnown'); k.classList.remove('hidden');
     k.innerHTML = known.length === 1
-      ? `📁 هذه الصورة من بيانات الاختبار: <b>السيارة #${ref.i}</b>. تصنيفها في البيانات: ${ref.g ? '<b style="color:var(--green)">سليمة</b>' : '<b style="color:var(--red)">غير مصرّح بها</b>'}.`
-      : `📁 الصورة تشبه أكثر من صورة في البيانات: ${known.map(c => `#${c.i} (${c.g?'سليمة':'غير مصرّح'})`).join('، ')}. الـ QR هو اللي يحدد أي سيارة هي.`;
+      ? `هذه الصورة من بيانات الاختبار: <b>السيارة #${ref.i}</b>. تصنيفها في البيانات: ${ref.g ? '<b style="color:var(--green)">سليمة</b>' : '<b style="color:var(--red)">غير مصرّح بها</b>'}.`
+      : `الصورة تشبه أكثر من صورة في البيانات: ${known.map(c => `#${c.i} (${c.g?'سليمة':'غير مصرّح'})`).join('، ')}. الـ QR هو اللي يحدد أي سيارة هي.`;
   }
 }
 
