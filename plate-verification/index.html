@@ -7,6 +7,9 @@
 <meta name="description" content="نظام ذكي للتحقق من لوحات المركبات باستخدام OCR و Regex وتشفير XOR ورمز QR — مشروع مقرر AI3101 بجامعة أم القرى." />
 <meta name="theme-color" content="#1F2427" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%237759c2'/%3E%3Crect x='10' y='20' width='44' height='24' rx='4' fill='%23fff'/%3E%3Crect x='14' y='30' width='36' height='3' fill='%237759c2'/%3E%3C/svg%3E" />
+<script>
+  try{ if(localStorage.getItem('lang')==='en'){ document.documentElement.lang='en'; document.documentElement.dir='ltr'; } }catch(e){}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@500;600;700;800&family=Readex+Pro:wght@300;400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -265,6 +268,18 @@ table.xor td.flash{background:var(--yellow-soft)}
 .verdict.bad h4{color:var(--red)}
 @keyframes shake{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
 
+
+.nav-actions{display:flex;align-items:center;gap:8px}
+.lang-switch{display:inline-flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,.25);background:transparent;color:#fff;border-radius:var(--radius-sm);padding:5px 10px;font-size:.86rem}
+.lang-switch:hover{border-color:#fff}
+html[dir=ltr] .back svg{transform:scaleX(-1)}
+html[lang=en]{--kufi:"Readex Pro",system-ui,sans-serif}
+html[lang=en] h1,html[lang=en] h2,html[lang=en] h3{letter-spacing:-.01em}
+html[lang=en] .hero .en-title{display:none}
+.panel-head .sub{text-align:left}
+html[dir=rtl] .panel-head .sub{text-align:right}
+#dsSearch,#dbSearch{direction:inherit!important;text-align:start!important}
+
 /* toast */
 .toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,calc(100% + 40px));visibility:hidden;z-index:100;background:var(--asphalt);color:#fff;padding:12px 18px;border-radius:var(--radius-sm);box-shadow:0 12px 30px rgba(0,0,0,.25);display:flex;align-items:center;gap:10px;transition:transform .4s var(--ease);max-width:calc(100% - 32px);font-size:.92rem}
 .toast.show{transform:translate(-50%,0);visibility:visible}
@@ -463,10 +478,13 @@ footer a{color:#fff}
       <a href="#database">قاعدة البيانات</a>
       <a href="#compare">المقارنة</a>
     </nav>
+    <div class="nav-actions">
+    <button class="lang-switch" id="langSwitch" type="button" aria-label="Switch to English"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg><span>English</span></button>
     <a class="back" href="../#projects">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg>
       ملف الأعمال
     </a>
+    </div>
   </div>
 </header>
 
@@ -889,6 +907,7 @@ footer a{color:#fff}
 <div class="toast" id="toast"><i></i><span id="toastTxt"></span></div>
 
 <!-- QR encode / decode libraries -->
+<script src="i18n.js"></script>
 <script src="lib/qrcode.js"></script>
 <script src="lib/jsQR.js"></script>
 
@@ -972,7 +991,7 @@ const sleep = ms => new Promise(r=>setTimeout(r,ms));
     const tok = toB64(xorEncrypt(full,'UQU_AI3101'));
     $('#hQr').textContent = tok.slice(0,10)+'…'; await sleep(900);
     $('#hQr').textContent = full; await sleep(500);
-    $('#hRes').textContent='مطابقة'; $('#hRes').className='ok'; $('#heroState').textContent='verified';
+    $('#hRes').textContent=t('مطابقة','Match'); $('#hRes').className='ok'; $('#heroState').textContent='verified';
     await sleep(2600);
   }
 })();
@@ -1001,37 +1020,37 @@ const ICONS = {
   bell:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6l8-4z"/><path d="M9 12l2 2 4-4"/></svg>'
 };
 const PIPE = [
- {ic:'cam',t:'رفع الصورة',en:'Input',d:'يُدخل المستخدم صورة واضحة للمركبة من جوال أو كاميرا. تشمل البيانات 160 صورة بظروف إضاءة مختلفة: شمس قوية، ليل، ظلال، وزوايا مائلة.',code:`<span class="f">uploaded</span> = files.<span class="f">upload</span>()
+ {ic:'cam',t:'رفع الصورة',tE:'Input photo',dE:'The user provides a clear photo of the vehicle from a phone or camera. The dataset has 1000 photos in varied conditions: strong sun, night, shadows and angled shots.',en:'Input',d:'يُدخل المستخدم صورة واضحة للمركبة من جوال أو كاميرا. تشمل البيانات 1000 صورة بظروف إضاءة مختلفة: شمس قوية، ليل، ظلال، وزوايا مائلة.',code:`<span class="f">uploaded</span> = files.<span class="f">upload</span>()
 img = cv2.<span class="f">imread</span>(image_name)
 h, w, _ = img.shape`},
- {ic:'crop',t:'قص ومعالجة',en:'ROI + Preprocess',d:'نقص منطقة اللوحة (ROI) ونحوّلها للرمادي، ثم نوازن التباين ونطبّق فلتر لإزالة التشويش. هذا يرفع دقة OCR بدون الحاجة لأجهزة قوية.',code:`y1, y2 = <span class="f">int</span>(h*<span class="n">0.48</span>), <span class="f">int</span>(h*<span class="n">0.82</span>)
+ {ic:'crop',t:'قص ومعالجة',tE:'Crop and clean up',dE:'The plate region (ROI) is cropped and converted to grayscale, then contrast is balanced and a filter removes noise. This raises OCR accuracy without heavy hardware.',en:'ROI + Preprocess',d:'نقص منطقة اللوحة (ROI) ونحوّلها للرمادي، ثم نوازن التباين ونطبّق فلتر لإزالة التشويش. هذا يرفع دقة OCR بدون الحاجة لأجهزة قوية.',code:`y1, y2 = <span class="f">int</span>(h*<span class="n">0.48</span>), <span class="f">int</span>(h*<span class="n">0.82</span>)
 x1, x2 = <span class="f">int</span>(w*<span class="n">0.25</span>), <span class="f">int</span>(w*<span class="n">0.75</span>)
 plate = img[y1:y2, x1:x2]
 gray = cv2.<span class="f">bilateralFilter</span>(gray, <span class="n">11</span>, <span class="n">17</span>, <span class="n">17</span>)`},
- {ic:'eye',t:'قراءة OCR',en:'Tesseract → EasyOCR',d:'نجرب Tesseract أولاً مع قائمة الحروف المسموحة. إذا ما طلعت صيغة صحيحة، نستخدم EasyOCR (شبكة CNN تدعم العربي والإنجليزي) ونختار السطر الأكبر خطاً.',code:`raw = pytesseract.<span class="f">image_to_string</span>(gray,
+ {ic:'eye',t:'قراءة OCR',tE:'Read with OCR',dE:'Tesseract runs first with an allow-list of characters. If no valid format comes out, EasyOCR (a CNN that reads Arabic and English) takes over and picks the line with the largest text.',en:'Tesseract → EasyOCR',d:'نجرب Tesseract أولاً مع قائمة الحروف المسموحة. إذا ما طلعت صيغة صحيحة، نستخدم EasyOCR (شبكة CNN تدعم العربي والإنجليزي) ونختار السطر الأكبر خطاً.',code:`raw = pytesseract.<span class="f">image_to_string</span>(gray,
   config=<span class="s">'--psm 6 -c tessedit_char_whitelist=A..Z0..9'</span>)
 <span class="k">if not</span> match:
     results = ocr_reader.<span class="f">readtext</span>(plate_img)`},
- {ic:'re',t:'تنظيف و Regex',en:'Normalize + Regex',d:'نشيل المسافات والرموز، نكبّر الحروف، ونحوّل الأرقام العربية لإنجليزية. بعدها نتحقق إن الناتج يطابق الصيغة السعودية: 4 أرقام + 3 حروف.',code:`text = re.<span class="f">sub</span>(<span class="s">r'[^A-Z0-9]'</span>, <span class="s">''</span>, text.<span class="f">upper</span>())
+ {ic:'re',t:'تنظيف و Regex',tE:'Clean and validate',dE:'Spaces and symbols are stripped, letters upper-cased and Arabic digits converted. The result must then match the Saudi format: four digits and three letters.',en:'Normalize + Regex',d:'نشيل المسافات والرموز، نكبّر الحروف، ونحوّل الأرقام العربية لإنجليزية. بعدها نتحقق إن الناتج يطابق الصيغة السعودية: 4 أرقام + 3 حروف.',code:`text = re.<span class="f">sub</span>(<span class="s">r'[^A-Z0-9]'</span>, <span class="s">''</span>, text.<span class="f">upper</span>())
 m = re.<span class="f">search</span>(<span class="s">r'(\\d{4}[A-Z]{3}|[A-Z]{3}\\d{3,4})'</span>, text)`},
- {ic:'lock',t:'تشفير و QR',en:'XOR + Base64',d:'نشفّر اللوحة الرسمية بـ XOR مع مفتاح سري ونحوّلها لـ Base64، ثم نولّد منها QR يكون هوية رقمية للسيارة.',code:`<span class="k">def</span> <span class="f">xor_encrypt</span>(text, key):
+ {ic:'lock',t:'تشفير و QR',tE:'Encrypt and encode',dE:'The registered plate is XOR-encrypted with a secret key and converted to Base64, then turned into a QR code that acts as the car’s digital identity.',en:'XOR + Base64',d:'نشفّر اللوحة الرسمية بـ XOR مع مفتاح سري ونحوّلها لـ Base64، ثم نولّد منها QR يكون هوية رقمية للسيارة.',code:`<span class="k">def</span> <span class="f">xor_encrypt</span>(text, key):
     <span class="k">return</span> <span class="f">bytes</span>(<span class="f">ord</span>(c) ^ <span class="f">ord</span>(key[i % <span class="f">len</span>(key)])
                  <span class="k">for</span> i, c <span class="k">in</span> <span class="f">enumerate</span>(text))
 b64 = base64.<span class="f">b64encode</span>(enc).<span class="f">decode</span>()`},
- {ic:'bell',t:'مقارنة وتنبيه',en:'Verify + Alert',d:'نقارن ثلاثة مصادر: اللوحة من الصورة، والـ QR بعد فك التشفير، والسجل الرسمي. إذا تطابقت فالسيارة سليمة، وإذا اختلفت يُرسل إشعار فوري للمرور.',code:`<span class="k">if</span> ocr_plate == qr_plate == official_plate:
+ {ic:'bell',t:'مقارنة وتنبيه',tE:'Compare and alert',dE:'Three sources are compared: the plate in the photo, the decrypted QR and the official registry. If they match the car is valid; if not, traffic police are alerted.',en:'Verify + Alert',d:'نقارن ثلاثة مصادر: اللوحة من الصورة، والـ QR بعد فك التشفير، والسجل الرسمي. إذا تطابقت فالسيارة سليمة، وإذا اختلفت يُرسل إشعار فوري للمرور.',code:`<span class="k">if</span> ocr_plate == qr_plate == official_plate:
     <span class="f">print</span>(<span class="s">"سيارة سليمة"</span>)
 <span class="k">else</span>:
     <span class="f">print</span>(<span class="s">"تنبيه: إرسال إشعار فوري إلى المرور"</span>)`}
 ];
-$('#pipeSteps').innerHTML = PIPE.map((p,i)=>`<button class="pstep${i===0?' active':''}" data-i="${i}"><span class="n">0${i+1}</span><div class="ico">${ICONS[p.ic]}</div><h4>${p.t}</h4><small>${p.en}</small></button>`).join('');
+function renderPipeSteps(){ $('#pipeSteps').innerHTML = PIPE.map((p,i)=>`<button class="pstep${i===0?' active':''}" data-i="${i}"><span class="n">0${i+1}</span><div class="ico">${ICONS[p.ic]}</div><h4>${t(p.t,p.tE)}</h4><small>${p.en}</small></button>`).join(''); }
+renderPipeSteps();
 function showPipe(i){
   $$('.pstep').forEach(b=>b.classList.toggle('active',+b.dataset.i===i));
   const p=PIPE[i];
-  $('#pipeDetail').innerHTML=`<div><h3>${p.t}</h3><p>${p.d}</p></div><div class="code">${p.code}</div>`;
+  $('#pipeDetail').innerHTML=`<div><h3>${t(p.t,p.tE)}</h3><p>${t(p.d,p.dE)}</p></div><div class="code">${p.code}</div>`;
 }
-$('#pipeSteps').addEventListener('click',e=>{ const b=e.target.closest('.pstep'); if(b){ showPipe(+b.dataset.i); clearInterval(pipeAuto);} });
-showPipe(0);
-let pipeIdx=0; const pipeAuto=setInterval(()=>{ pipeIdx=(pipeIdx+1)%PIPE.length; showPipe(pipeIdx); },4500);
+$('#pipeSteps').addEventListener('click',e=>{ const b=e.target.closest('.pstep'); if(b){ pipeIdx=+b.dataset.i; showPipe(pipeIdx);} });
+let pipeIdx=0; showPipe(0);
 
 /* =====================================================
    STEP 1 — image, crop, preprocessing, OCR
@@ -1042,9 +1061,9 @@ let roi = {x1:.25,y1:.48,x2:.75,y2:.82};   // same ratios as notebook
 let mode = 'sample';
 
 const SAMPLES = [
-  {num:'6259',let:'VFO',body:'#2b3a55',label:'هيونداي · 6259 VFO'},
-  {num:'2030',let:'NTU',body:'#7a1f2b',label:'كامري · 2030 NTU'},
-  {num:'9782',let:'ISR',body:'#d9d9de',label:'النترا · 9782 ISR'}
+  {num:'6259',let:'VFO',body:'#2b3a55',label:'هيونداي 6259 VFO',labelE:'Hyundai 6259 VFO'},
+  {num:'2030',let:'NTU',body:'#7a1f2b',label:'كامري 2030 NTU',labelE:'Camry 2030 NTU'},
+  {num:'9782',let:'ISR',body:'#d9d9de',label:'النترا 9782 ISR',labelE:'Elantra 9782 ISR'}
 ];
 function drawSample(s){
   const W=900,H=560,c=document.createElement('canvas'); c.width=W;c.height=H; const g=c.getContext('2d');
@@ -1080,7 +1099,8 @@ function drawSample(s){
   g.fillText(s.let.split('').join(' '),px+half*1.5,py+ph*0.75);
   return c;
 }
-$('#sampleBtns').innerHTML = SAMPLES.map((s,i)=>`<button class="chip-btn${i===0?' on':''}" data-i="${i}">${s.label}</button>`).join('');
+function renderSampleBtns(){ const on=+($('#sampleBtns button.on')?.dataset.i||0); $('#sampleBtns').innerHTML = SAMPLES.map((s,i)=>`<button class="chip-btn${i===on?' on':''}" data-i="${i}">${t(s.label,s.labelE)}</button>`).join(''); }
+renderSampleBtns();
 $('#sampleBtns').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; $$('#sampleBtns button').forEach(x=>x.classList.toggle('on',x===b)); loadSource(drawSample(SAMPLES[+b.dataset.i])); });
 
 function loadSource(imgLike, resetRoi=true){
@@ -1154,13 +1174,13 @@ $('#srcTabs').addEventListener('click',e=>{
   $('#sampleBtns').classList.toggle('hidden', mode!=='sample');
   $('#preBox').classList.toggle('hidden', mode==='manual' || (mode==='upload' && !uploaded));
   $('#ocrBtn').disabled = (mode==='upload' && !uploaded);
-  $('#ocrBtnTxt').textContent = mode==='manual' ? 'نظّف وتحقق (Regex)' : 'اقرأ اللوحة (OCR)';
+  $('#ocrBtnTxt').textContent = mode==='manual' ? t('نظّف وتحقق (Regex)','Clean and validate (Regex)') : t('اقرأ اللوحة (OCR)','Read plate (OCR)');
   if(mode==='sample') $$('#sampleBtns button.on')[0]?.click();
   if(mode==='upload' && uploaded) loadSource(uploaded);
 });
 let uploaded=null;
-function handleFile(f, cb){ if(!f||!f.type.startsWith('image/')) return toast('الرجاء اختيار ملف صورة'); const url=URL.createObjectURL(f); const im=new Image(); im.onload=()=>cb(im); im.src=url; }
-$('#fileIn').addEventListener('change',e=>handleFile(e.target.files[0],im=>{ uploaded=im; $('#srcUpload').classList.add('hidden'); $('#srcSample').classList.remove('hidden'); $('#preBox').classList.remove('hidden'); $('#ocrBtn').disabled=false; loadSource(im); toast('تم رفع الصورة وقص منطقة اللوحة',true); }));
+function handleFile(f, cb){ if(!f||!f.type.startsWith('image/')) return toast(t('الرجاء اختيار ملف صورة','Please choose an image file')); const url=URL.createObjectURL(f); const im=new Image(); im.onload=()=>cb(im); im.src=url; }
+$('#fileIn').addEventListener('change',e=>handleFile(e.target.files[0],im=>{ uploaded=im; $('#srcUpload').classList.add('hidden'); $('#srcSample').classList.remove('hidden'); $('#preBox').classList.remove('hidden'); $('#ocrBtn').disabled=false; loadSource(im); toast(t('تم رفع الصورة وقص منطقة اللوحة','Photo uploaded and plate region cropped'),true); }));
 const drop=$('#drop');
 ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over');}));
 ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over');}));
@@ -1168,7 +1188,7 @@ drop.addEventListener('drop',e=>handleFile(e.dataTransfer.files[0],im=>{ uploade
 
 function resetOcrOutputs(){
   ['#oRaw','#oClean','#oPlate','#oPlateAr'].forEach(s=>$(s).textContent='—');
-  $('#oRegex').innerHTML='<span class="badge wait">بانتظار القراءة</span>';
+  $('#oRegex').innerHTML=`<span class="badge wait">${t('بانتظار القراءة','Not read yet')}</span>`;
   $('#ocrProg').style.width='0'; $('#ocrStatus').textContent='ready.';
   $('#p1').classList.remove('done');
 }
@@ -1177,7 +1197,7 @@ function showOcrResult(raw){
   const {plate,valid} = extractPlate(raw);
   $('#oRaw').textContent = JSON.stringify(String(raw));
   $('#oClean').textContent = normalizePlate(clean) || '—';
-  $('#oRegex').innerHTML = valid ? '<span class="badge ok">✓ صيغة صحيحة</span>' : '<span class="badge bad">✗ صيغة غير مطابقة</span>';
+  $('#oRegex').innerHTML = valid ? `<span class="badge ok">${t('صيغة صحيحة','Valid format')}</span>` : `<span class="badge bad">${t('صيغة غير مطابقة','Invalid format')}</span>`;
   $('#oPlate').textContent = plate || '—';
   $('#oPlateAr').textContent = arabicPlate(plate) || '—';
   $('#ocrEdit').value = plate;
@@ -1212,11 +1232,11 @@ $('#ocrBtn').addEventListener('click',async()=>{
   }catch(err){
     console.error(err);
     $('#ocrStatus').textContent='OCR unavailable — use manual entry';
-    toast('تعذّر تحميل محرك OCR. جرّب "إدخال يدوي" أو صحّح القراءة في الحقل.');
+    toast(t('تعذّر تحميل محرك OCR. جرّب "إدخال يدوي" أو صحّح القراءة في الحقل.','The OCR engine could not load. Use “Type it in”, or correct the reading in the field.'));
   }finally{ btn.disabled=false; }
 });
 $('#ocrEdit').addEventListener('input',e=>{ const p=normalizePlate(e.target.value); $('#oPlate').textContent=p||'—'; $('#oPlateAr').textContent=arabicPlate(p)||'—';
-  $('#oRegex').innerHTML = PLATE_RE.test(p) && p.match(PLATE_RE)[0]===p ? '<span class="badge ok">✓ صيغة صحيحة</span>' : '<span class="badge bad">✗ صيغة غير مطابقة</span>';
+  $('#oRegex').innerHTML = PLATE_RE.test(p) && p.match(PLATE_RE)[0]===p ? `<span class="badge ok">${t('صيغة صحيحة','Valid format')}</span>` : `<span class="badge bad">${t('صيغة غير مطابقة','Invalid format')}</span>`;
   setOcrPlate(p,true); });
 
 /* =====================================================
@@ -1235,7 +1255,7 @@ function renderXor(){
   const bytes=xorEncrypt(text,key);
   const hex=b=>'0x'+b.toString(16).toUpperCase().padStart(2,'0');
   const bin=b=>b.toString(2).padStart(8,'0');
-  if(!text){ $('#xorTable').innerHTML='<tr><td style="color:var(--dim)">أدخل لوحة لعرض خطوات التشفير</td></tr>'; $('#b64Out').textContent='—'; $('#decOut').textContent='—'; state.qrB64=''; return; }
+  if(!text){ $('#xorTable').innerHTML=`<tr><td style="color:var(--dim)">${t('أدخل لوحة لعرض خطوات التشفير','Enter a plate to see the encryption steps')}</td></tr>`; $('#b64Out').textContent='—'; $('#decOut').textContent='—'; state.qrB64=''; return; }
   const row=(label,cells,cls='')=>`<tr class="${cls}"><th>${label}</th>${cells.map((c,i)=>`<td data-c="${i}">${c}</td>`).join('')}</tr>`;
   $('#xorTable').innerHTML =
     row('plate char',[...text]) +
@@ -1254,7 +1274,7 @@ function renderXor(){
 }
 $('#officialIn').addEventListener('input',e=>{ state.official=normalizePlate(e.target.value); renderXor(); renderQr(); fillVerify(); });
 $('#keyIn').addEventListener('input',e=>{ state.key=e.target.value||''; renderXor(); renderQr(); fillVerify(); });
-$('#copyB64').addEventListener('click',()=>{ navigator.clipboard?.writeText(state.qrB64).then(()=>toast('تم النسخ',true)); });
+$('#copyB64').addEventListener('click',()=>{ navigator.clipboard?.writeText(state.qrB64).then(()=>toast(t('تم النسخ','Copied'),true)); });
 
 /* =====================================================
    STEP 3 — QR
@@ -1281,13 +1301,13 @@ async function scanQr(fromCanvas=qrCv){
   let data=null, method='';
   if(window.jsQR){
     const g=fromCanvas.getContext('2d'), d=g.getImageData(0,0,fromCanvas.width,fromCanvas.height);
-    const r=jsQR(d.data,d.width,d.height); if(r){ data=r.data; method='jsQR (مسح بصري للصورة)'; }
+    const r=jsQR(d.data,d.width,d.height); if(r){ data=r.data; method=t('jsQR (مسح بصري للصورة)','jsQR (scanned from the image)'); }
   }
-  if(!data && fromCanvas===qrCv && state.qrOnCar){ data=state.qrOnCar; method='قراءة مباشرة'; }
-  if(!data){ toast('ما قدرنا نقرأ أي QR من الصورة'); return null; }
+  if(!data && fromCanvas===qrCv && state.qrOnCar){ data=state.qrOnCar; method=t('قراءة مباشرة','Read directly'); }
+  if(!data){ toast(t('ما قدرنا نقرأ أي QR من الصورة','No QR code could be read from the image')); return null; }
   let plain='';
   plain=decodePayload(data,state.key||'K');
-  $('#qrData').textContent=data; $('#qrPlain').textContent=plain||'(فشل فك التشفير)'; $('#qrPlainAr').textContent=arabicPlate(plain)||'—'; $('#qrMethod').textContent=method;
+  $('#qrData').textContent=data; $('#qrPlain').textContent=plain||t('(فشل فك التشفير)','(decryption failed)'); $('#qrPlainAr').textContent=arabicPlate(plain)||'—'; $('#qrMethod').textContent=method;
   state.qrPlain=plain; $('#p3').classList.add('done');
   return plain;
 }
@@ -1295,7 +1315,7 @@ $('#scanQrBtn').addEventListener('click',async()=>{ const p=await scanQr(); if(p
 $('#dlQr').addEventListener('click',()=>{ const a=document.createElement('a'); a.download='vehicle_qr.png'; a.href=qrCv.toDataURL('image/png'); a.click(); });
 $('#qrFile').addEventListener('change',e=>handleFile(e.target.files[0],async im=>{
   const c=document.createElement('canvas'); const s=Math.min(1,1000/Math.max(im.width,im.height)); c.width=im.width*s; c.height=im.height*s; c.getContext('2d').drawImage(im,0,0,c.width,c.height);
-  const p=await scanQr(c); if(p){ state.scenario='custom'; setScenarioUi(); $('#eQr').value=p; fillVerify(); toast('تمت قراءة QR خارجي: '+p,true); }
+  const p=await scanQr(c); if(p){ state.scenario='custom'; setScenarioUi(); $('#eQr').value=p; fillVerify(); toast(t('تمت قراءة QR خارجي: ','QR image read: ')+p,true); }
 }));
 
 /* =====================================================
@@ -1324,10 +1344,10 @@ function fillVerify(){
   const ocr=state.ocrPlate, db=normalizePlate(state.official);
   $('#vOcr').textContent=ocr||'—'; $('#aOcr').textContent=arabicPlate(ocr);
   $('#vDb').textContent=db||'—';   $('#aDb').textContent=arabicPlate(db);
-  $('#vQr').textContent='🔒 مشفّر'; $('#aQr').textContent='';
+  $('#vQr').textContent=t('مشفّر','Encrypted'); $('#aQr').textContent='';
   ['#sOcr','#sQr','#sDb'].forEach(s=>$(s).className='src');
 }
-function resetVerdict(){ const v=$('#verdict'); v.className='verdict'; $('#vTitle').textContent='بانتظار التحقق'; $('#vText').textContent='اضغط "شغّل التحقق" للمقارنة بين المصادر الثلاثة.'; }
+function resetVerdict(){ const v=$('#verdict'); v.className='verdict'; $('#vTitle').textContent=t('بانتظار التحقق','Not checked yet'); $('#vText').textContent=t('اضغط "شغّل التحقق" للمقارنة بين المصادر الثلاثة.','Press “Run the check” to compare the three sources.'); }
 $('#verifyBtn').addEventListener('click',async()=>{
   const btn=$('#verifyBtn'); btn.disabled=true; resetVerdict();
   const ocr=normalizePlate(state.scenario==='custom'?$('#eOcr').value:state.ocrPlate);
@@ -1349,16 +1369,16 @@ $('#verifyBtn').addEventListener('click',async()=>{
   if(allEq){
     v.className='verdict ok';
     v.querySelector('.vi').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12l5 5L20 7"/></svg>';
-    $('#vTitle').textContent='تطابق تام: السيارة سليمة';
-    $('#vText').textContent=`اللوحة ${ocr} (${arabicPlate(ocr)}) متطابقة في الصورة والـ QR والسجل الرسمي، ولا يلزم أي إجراء.`;
-    toast('تطابق تام، لا يلزم أي إجراء',true);
+    $('#vTitle').textContent=t('تطابق تام: السيارة سليمة','Full match: vehicle is valid');
+    $('#vText').textContent=t(`اللوحة ${ocr} (${arabicPlate(ocr)}) متطابقة في الصورة والـ QR والسجل الرسمي، ولا يلزم أي إجراء.`,`Plate ${ocr} matches in the photo, the QR code and the official registry. No action needed.`);
+    toast(t('تطابق تام، لا يلزم أي إجراء','Full match, no action needed'),true);
     $('#p4').classList.add('done');
   }else{
     v.className='verdict bad';
     v.querySelector('.vi').innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9L1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>';
-    $('#vTitle').textContent='اختلاف! إرسال إشعار فوري إلى المرور';
-    $('#vText').innerHTML=`OCR: <b class="mono">${ocr||'—'}</b> · QR: <b class="mono">${qr||'—'}</b> · السجل: <b class="mono">${db||'—'}</b>. احتمال لوحة مزوّرة أو مبدّلة.`;
-    toast('تم إرسال تنبيه إلى إدارة المرور');
+    $('#vTitle').textContent=t('اختلاف! إرسال إشعار فوري إلى المرور','Mismatch: traffic police alerted');
+    $('#vText').innerHTML=`OCR: <b class="mono">${ocr||'—'}</b> · QR: <b class="mono">${qr||'—'}</b> · ${t('السجل','Registry')}: <b class="mono">${db||'—'}</b>. ${t('احتمال لوحة مزوّرة أو مبدّلة.','Possibly a forged or swapped plate.')}`;
+    toast(t('تم إرسال تنبيه إلى إدارة المرور','Alert sent to traffic police'));
     $('#p4').classList.remove('done');
   }
   btn.disabled=false;
@@ -1367,6 +1387,12 @@ $('#verifyBtn').addEventListener('click',async()=>{
 /* =====================================================
    INIT
    ===================================================== */
+document.addEventListener('langchange', () => {
+  renderPipeSteps(); showPipe(pipeIdx); renderSampleBtns();
+  $('#ocrBtnTxt').textContent = mode==='manual' ? t('نظّف وتحقق (Regex)','Clean and validate (Regex)') : t('اقرأ اللوحة (OCR)','Read plate (OCR)');
+  if($('#oPlate').textContent!=='—') $('#ocrEdit').dispatchEvent(new Event('input')); else $('#oRegex').innerHTML=`<span class="badge wait">${t('بانتظار القراءة','Not read yet')}</span>`;
+  renderXor(); fillVerify(); resetVerdict();
+});
 window.PV = { xorDecrypt, normalizePlate, arabicPlate, decodePayload, toast, sleep,
   loadIntoDemo(img, box, plate){
     document.querySelector('#srcTabs [data-src="sample"]').click();

@@ -96,10 +96,10 @@ async function ocrTokens(im, timeoutMs = 30000){
 const SA = /^(\d{3,4})([A-Z]{3})$/;
 
 /* ---------- UI ---------- */
-const STEPS = ['قراءة رمز QR من الصورة', 'فك التشفير XOR', 'البحث في السجل الرسمي', 'فحص اللوحة بالـ OCR'];
+const STEPS = () => [t('قراءة رمز QR من الصورة','Read the QR code in the photo'), t('فك التشفير XOR','XOR decryption'), t('البحث في السجل الرسمي','Registry lookup'), t('فحص اللوحة بالـ OCR','Check the plate with OCR')];
 let state;
 function renderSteps(){
-  $('#ckSteps').innerHTML = state.map((s, i) => `<div class="m-step ${s.cls}"><span class="n">${i+1}</span><div><h5>${STEPS[i]}</h5><p>${s.txt}</p></div></div>`).join('');
+  $('#ckSteps').innerHTML = state.map((s, i) => `<div class="m-step ${s.cls}"><span class="n">${i+1}</span><div><h5>${STEPS()[i]}</h5><p>${s.txt}</p></div></div>`).join('');
 }
 function setStep(i, cls, txt){ state[i] = {cls, txt}; renderSteps(); }
 function boxes(qb, ob){
@@ -114,13 +114,15 @@ function verdict(kind, title, text){
   v.innerHTML = `<div class="big">${kind==='ok'?ICON_OK:kind==='bad'?ICON_BAD:ICON_Q}</div><div><h3>${title}</h3><p>${text}</p></div>`;
 }
 
+let lastFile = null;
 async function run(file){
-  if(!file || !file.type.startsWith('image/')){ PV.toast('الرجاء اختيار ملف صورة'); return; }
+  lastFile = file;
+  if(!file || !file.type.startsWith('image/')){ PV.toast(t('الرجاء اختيار ملف صورة','Please choose an image file')); return; }
   $('#ckDrop').classList.add('hidden'); $('#ckResult').classList.remove('hidden'); $('#ckKnown').classList.add('hidden'); $('#ckKnown').innerHTML='';
   const url = URL.createObjectURL(file);
   $('#ckImg').src = url; boxes(null, null);
-  $('#ckVerdict').className = 'ck-verdict'; $('#ckVerdict').innerHTML = '<div class="spin"></div><div><h3>جاري الفحص…</h3><p>قراءة الـ QR وفك تشفيره</p></div>';
-  state = STEPS.map(() => ({cls:'skip', txt:'—'})); setStep(0, 'run', 'جاري البحث عن الـ QR…');
+  $('#ckVerdict').className = 'ck-verdict'; $('#ckVerdict').innerHTML = `<div class="spin"></div><div><h3>${t('جاري الفحص…','Checking…')}</h3><p>${t('قراءة الـ QR وفك تشفيره','Reading and decrypting the QR code')}</p></div>`;
+  state = STEPS().map(() => ({cls:'skip', txt:'—'})); setStep(0, 'run', t('جاري البحث عن الـ QR…','Looking for the QR code…'));
   const im = await loadImg(url);
   await ready;
 
@@ -135,46 +137,46 @@ async function run(file){
 
   /* 1. QR */
   let qr = await scanQR(im), qrSrc = 'live';
-  if(!qr && ref && ref.q){ qr = {data:ref.q, box:ref.qb, how:'التحليل المسبق (OpenCV)'}; qrSrc = 'pre'; }
-  if(qr){ setStep(0, 'ok', `<span class="mono">${qr.data}</span><br><small>${qr.how}${qrSrc==='pre'?' · المتصفح ما قدر يقرأه':''}</small>`); boxes(qr.box, null); }
-  else setStep(0, 'bad', 'ما انقرأ أي QR (صغير أو ضبابي). نعتمد على قراءة اللوحة بالـ OCR.');
+  if(!qr && ref && ref.q){ qr = {data:ref.q, box:ref.qb, how:t('التحليل المسبق (OpenCV)','Offline analysis (OpenCV)')}; qrSrc = 'pre'; }
+  if(qr){ setStep(0, 'ok', `<span class="mono">${qr.data}</span><br><small>${qr.how}${qrSrc==='pre'?t('، المتصفح ما قدر يقرأه',', the browser could not read it'):''}</small>`); boxes(qr.box, null); }
+  else setStep(0, 'bad', t('ما انقرأ أي QR (صغير أو ضبابي). نعتمد على قراءة اللوحة بالـ OCR.','No QR code could be read (too small or blurry). Falling back to reading the plate with OCR.'));
 
   /* 2. decrypt */
   let plate = '';
   if(qr){
     plate = PV.decodePayload(qr.data, KEY);
     if(plate && /^[A-Z0-9]{3,10}$/.test(plate)) setStep(1, 'ok', `<span class="mono">${plate}</span> · ${PV.arabicPlate(plate)}`);
-    else { setStep(1, 'bad', 'محتوى الـ QR ليس بصيغة النظام أو المفتاح غير صحيح'); plate = ''; }
+    else { setStep(1, 'bad', t('محتوى الـ QR ليس بصيغة النظام أو المفتاح غير صحيح','The QR content is not in the system format, or the key is wrong')); plate = ''; }
   }
 
   /* 4 (runs before 3 when there is no QR): OCR */
   let ocr = null, ocrErr = false, ocrBox = null, conflict = null, fbPlate = null;
-  setStep(3, 'run', 'جاري قراءة اللوحة بالـ OCR…');
-  $('#ckVerdict').querySelector('p').textContent = 'فحص اللوحة بالـ OCR';
+  setStep(3, 'run', t('جاري قراءة اللوحة بالـ OCR…','Reading the plate with OCR…'));
+  $('#ckVerdict').querySelector('p').textContent = t('فحص اللوحة بالـ OCR','Checking the plate with OCR');
   try{ ocr = await ocrTokens(im); }catch(e){ console.warn(e); ocrErr = true; }
   if(ocr){
     const sa = ocr.filter(o => SA.test(o.t));
     if(plate){
       const hit = ocr.find(o => sim(o.t, plate) >= .8);
       const bad = sa.find(o => sim(o.t, plate) < .5);
-      if(hit){ ocrBox = hit.box; setStep(3, 'ok', `قرأ OCR <span class="mono">${hit.t}</span> وهي تطابق لوحة الـ QR`); }
-      else if(bad){ conflict = bad.t; ocrBox = bad.box; setStep(3, 'bad', `قرأ OCR لوحة مختلفة: <span class="mono">${bad.t}</span> ≠ <span class="mono">${plate}</span>`); }
-      else setStep(3, 'skip', 'ما قرأ OCR لوحة سعودية واضحة، فاعتمدنا على الـ QR والسجل.');
+      if(hit){ ocrBox = hit.box; setStep(3, 'ok', t(`قرأ OCR <span class="mono">${hit.t}</span> وهي تطابق لوحة الـ QR`,`OCR read <span class="mono">${hit.t}</span>, which matches the QR plate`)); }
+      else if(bad){ conflict = bad.t; ocrBox = bad.box; setStep(3, 'bad', t(`قرأ OCR لوحة مختلفة: <span class="mono">${bad.t}</span> ≠ <span class="mono">${plate}</span>`,`OCR read a different plate: <span class="mono">${bad.t}</span> ≠ <span class="mono">${plate}</span>`)); }
+      else setStep(3, 'skip', t('ما قرأ OCR لوحة سعودية واضحة، فاعتمدنا على الـ QR والسجل.','OCR found no clear Saudi plate, so the QR code and registry decide.'));
     }else{
       let best = null;
       for(const o of sa) for(const p of byPlate.keys()){ const s = sim(o.t, p); if(!best || s > best.s) best = {s, p, o}; }
-      if(best && best.s >= .85){ fbPlate = best.p; ocrBox = best.o.box; setStep(3, 'ok', `قرأ OCR اللوحة <span class="mono">${best.o.t}</span> ← في السجل <span class="mono">${best.p}</span>`); }
-      else setStep(3, 'bad', 'ما قدر OCR يقرأ لوحة سعودية من الصورة.');
+      if(best && best.s >= .85){ fbPlate = best.p; ocrBox = best.o.box; setStep(3, 'ok', t(`قرأ OCR اللوحة <span class="mono">${best.o.t}</span> ← في السجل <span class="mono">${best.p}</span>`,`OCR read <span class="mono">${best.o.t}</span>, matched to <span class="mono">${best.p}</span> in the registry`)); }
+      else setStep(3, 'bad', t('ما قدر OCR يقرأ لوحة سعودية من الصورة.','OCR could not read a Saudi plate in the photo.'));
     }
   }
   if(!ocr){
     // browser OCR unavailable → use the offline OCR result for this photo, if we recognised it
     if(ref && ref.oc && ref.oc !== 'none'){
-      if(ref.oc === 'fallback' && !plate){ fbPlate = PV.normalizePlate(DATA.db[ref.f]?.[1] || ''); ocrBox = ref.ob; setStep(3, 'ok', `قراءة OCR من التحليل المسبق: <span class="mono">${ref.o}</span>`); }
-      else if(ref.oc === 'conflict' && plate){ conflict = ref.o; ocrBox = ref.ob; setStep(3, 'bad', `قراءة OCR من التحليل المسبق: <span class="mono">${ref.o}</span> ≠ <span class="mono">${plate}</span>`); }
-      else if(ref.oc === 'confirm' && plate){ ocrBox = ref.ob; setStep(3, 'ok', `قراءة OCR من التحليل المسبق تطابق: <span class="mono">${ref.o}</span>`); }
-      else setStep(3, 'skip', ocrErr ? 'محرك OCR ما اشتغل في المتصفح' : '—');
-    }else setStep(3, 'skip', ocrErr ? 'محرك OCR ما اشتغل في المتصفح (يحتاج اتصال بالإنترنت لتحميله)' : '—');
+      if(ref.oc === 'fallback' && !plate){ fbPlate = PV.normalizePlate(DATA.db[ref.f]?.[1] || ''); ocrBox = ref.ob; setStep(3, 'ok', t(`قراءة OCR من التحليل المسبق: <span class="mono">${ref.o}</span>`,`OCR reading from the offline analysis: <span class="mono">${ref.o}</span>`)); }
+      else if(ref.oc === 'conflict' && plate){ conflict = ref.o; ocrBox = ref.ob; setStep(3, 'bad', t(`قراءة OCR من التحليل المسبق: <span class="mono">${ref.o}</span> ≠ <span class="mono">${plate}</span>`,`OCR reading from the offline analysis: <span class="mono">${ref.o}</span> ≠ <span class="mono">${plate}</span>`)); }
+      else if(ref.oc === 'confirm' && plate){ ocrBox = ref.ob; setStep(3, 'ok', t(`قراءة OCR من التحليل المسبق تطابق: <span class="mono">${ref.o}</span>`,`OCR reading from the offline analysis matches: <span class="mono">${ref.o}</span>`)); }
+      else setStep(3, 'skip', ocrErr ? t('محرك OCR ما اشتغل في المتصفح','The OCR engine did not run in the browser') : '—');
+    }else setStep(3, 'skip', ocrErr ? t('محرك OCR ما اشتغل في المتصفح (يحتاج اتصال بالإنترنت لتحميله)','The OCR engine did not run in the browser (it needs an internet connection to load)') : '—');
   }
   boxes(qr && qr.box, ocrBox);
 
@@ -185,27 +187,30 @@ async function run(file){
   if(lookup){
     if(ids){
       const id = Math.min(...ids), rec = DATA.db[id-1]; auth = id <= AUTH_MAX_ID;
-      setStep(2, auth ? 'ok' : 'bad', `سجل #${id}: ${rec[2]} ${rec[3]} · ${rec[4]} · ${auth ? '<b style="color:var(--green)">مصرّح</b>' : '<b style="color:var(--red)">غير مصرّح</b>'}`);
-    } else setStep(2, 'bad', `اللوحة <span class="mono">${lookup}</span> غير موجودة في السجل`);
+      setStep(2, auth ? 'ok' : 'bad', `${t('سجل','Record')} #${id}: ${rec[2]} ${rec[3]}, ${rec[4]}. ${auth ? `<b style="color:var(--green)">${t('مصرّح','Authorized')}</b>` : `<b style="color:var(--red)">${t('غير مصرّح','Unauthorized')}</b>`}`);
+    } else setStep(2, 'bad', t(`اللوحة <span class="mono">${lookup}</span> غير موجودة في السجل`,`Plate <span class="mono">${lookup}</span> is not in the registry`));
   }
 
   /* verdict */
-  if(!lookup) verdict('unk', 'تعذّر التحقق: تنبيه', 'ما قدر النظام يقرأ الـ QR ولا اللوحة. يحتاج فحص يدوي من رجل المرور.');
-  else if(!ids) verdict('bad', 'غير سليمة', 'اللوحة غير مسجّلة في النظام. تم إرسال تنبيه للمرور.');
-  else if(conflict) verdict('bad', 'غير سليمة', 'اللوحة الظاهرة في الصورة تختلف عن هوية السيارة في الـ QR. يُحتمل أنها لوحة مبدّلة، وتم إرسال تنبيه للمرور.');
-  else if(auth) verdict('ok', 'سليمة', `اللوحة ${lookup} (${PV.arabicPlate(lookup)}) مسجّلة كمركبة مصرّح بها. لا يلزم أي إجراء.`);
-  else verdict('bad', 'غير سليمة', `اللوحة ${lookup} مسجّلة كمركبة غير مصرّح بها. تم إرسال تنبيه للمرور.`);
+  if(!lookup) verdict('unk', t('تعذّر التحقق: تنبيه','Could not verify: alert'), t('ما قدر النظام يقرأ الـ QR ولا اللوحة. يحتاج فحص يدوي من رجل المرور.','The system could read neither the QR code nor the plate. A traffic officer should check it by hand.'));
+  else if(!ids) verdict('bad', t('غير سليمة','Not valid'), t('اللوحة غير مسجّلة في النظام. تم إرسال تنبيه للمرور.','The plate is not registered in the system. Traffic police have been alerted.'));
+  else if(conflict) verdict('bad', t('غير سليمة','Not valid'), t('اللوحة الظاهرة في الصورة تختلف عن هوية السيارة في الـ QR. يُحتمل أنها لوحة مبدّلة، وتم إرسال تنبيه للمرور.','The plate in the photo differs from the vehicle identity in the QR code. It may be a swapped plate; traffic police have been alerted.'));
+  else if(auth) verdict('ok', t('سليمة','Valid'), t(`اللوحة ${lookup} (${PV.arabicPlate(lookup)}) مسجّلة كمركبة مصرّح بها. لا يلزم أي إجراء.`,`Plate ${lookup} is registered as an authorized vehicle. No action needed.`));
+  else verdict('bad', t('غير سليمة','Not valid'), t(`اللوحة ${lookup} مسجّلة كمركبة غير مصرّح بها. تم إرسال تنبيه للمرور.`,`Plate ${lookup} is registered as an unauthorized vehicle. Traffic police have been alerted.`));
 
   // dataset reference (ground truth) for comparison
   if(known.length){
     const k = $('#ckKnown'); k.classList.remove('hidden');
     k.innerHTML = known.length === 1
-      ? `هذه الصورة من بيانات الاختبار: <b>السيارة #${ref.i}</b>. تصنيفها في البيانات: ${ref.g ? '<b style="color:var(--green)">سليمة</b>' : '<b style="color:var(--red)">غير مصرّح بها</b>'}.`
-      : `الصورة تشبه أكثر من صورة في البيانات: ${known.map(c => `#${c.i} (${c.g?'سليمة':'غير مصرّح'})`).join('، ')}. الـ QR هو اللي يحدد أي سيارة هي.`;
+      ? t(`هذه الصورة من بيانات الاختبار: <b>السيارة #${ref.i}</b>. تصنيفها في البيانات: ${ref.g ? '<b style="color:var(--green)">سليمة</b>' : '<b style="color:var(--red)">غير مصرّح بها</b>'}.`,
+          `This photo is from the test dataset: <b>vehicle #${ref.i}</b>. Its class in the data: ${ref.g ? '<b style="color:var(--green)">valid</b>' : '<b style="color:var(--red)">unauthorized</b>'}.`)
+      : t(`الصورة تشبه أكثر من صورة في البيانات: ${known.map(c => `#${c.i} (${c.g?'سليمة':'غير مصرّح'})`).join('، ')}. الـ QR هو اللي يحدد أي سيارة هي.`,
+          `This photo resembles several in the dataset: ${known.map(c => `#${c.i} (${c.g?'valid':'unauthorized'})`).join(', ')}. The QR code decides which vehicle it is.`);
   }
 }
 
 /* ---------- wiring ---------- */
+document.addEventListener('langchange', () => { if(lastFile && !$('#ckResult').classList.contains('hidden')) run(lastFile); });
 $('#ckFile').addEventListener('change', e => { run(e.target.files[0]); e.target.value = ''; });
 const drop = $('#ckDrop');
 ['dragenter','dragover'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add('over'); }));
