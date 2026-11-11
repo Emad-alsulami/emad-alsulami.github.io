@@ -241,6 +241,71 @@ table.xor td.flash{background:rgba(119,89,194,.25)}
 @keyframes shake{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
 @keyframes alarm{50%{box-shadow:0 0 0 12px rgba(255,84,112,0)}0%{box-shadow:0 0 0 0 rgba(255,84,112,.6)}}
 
+
+/* ===== Dataset ===== */
+.ds-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+@media (max-width:860px){.ds-metrics{grid-template-columns:repeat(2,1fr)}}
+.ds-loading{grid-column:1/-1;text-align:center;color:var(--muted);padding:30px}
+.metric{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px}
+.metric small{color:var(--muted);font-size:.84rem}
+.metric b{display:block;font-family:var(--mono);font-size:2rem;line-height:1.3}
+.metric .bar{height:6px;border-radius:6px;background:var(--bg-2);overflow:hidden;margin-top:8px}
+.metric .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--purple),var(--cyan));width:0;transition:width 1.2s var(--ease)}
+.metric em{font-style:normal;color:var(--dim);font-size:.78rem}
+.ds-charts{display:grid;grid-template-columns:1fr 1.2fr;gap:18px}
+@media (max-width:900px){.ds-charts{grid-template-columns:1fr}}
+.cm{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:stretch;font-size:.86rem}
+.cm .h{color:var(--muted);text-align:center;font-size:.8rem;align-self:end}
+.cm .rh{color:var(--muted);font-size:.8rem;display:flex;align-items:center}
+.cm .cell{border-radius:14px;padding:16px 10px;text-align:center;border:1px solid var(--line)}
+.cm .cell b{display:block;font-family:var(--mono);font-size:1.7rem}
+.cm .cell span{font-size:.75rem;color:var(--muted)}
+.cm .good{background:var(--green-soft);border-color:rgba(47,209,137,.35)} .cm .good b{color:var(--green)}
+.cm .badc{background:var(--red-soft);border-color:rgba(255,84,112,.35)} .cm .badc b{color:var(--red)}
+.reason{margin-bottom:14px}
+.reason .top{display:flex;justify-content:space-between;font-size:.86rem;margin-bottom:4px;gap:10px}
+.reason .top span{color:var(--muted)}
+.reason .track2{display:flex;height:22px;border-radius:8px;overflow:hidden;background:var(--bg-2)}
+.reason .track2 i{display:block;height:100%;transition:width 1s var(--ease)}
+.reason-legend{display:flex;gap:14px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-top:6px}
+.reason-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:5px;vertical-align:middle}
+.ds-filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.ds-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px;min-height:200px}
+.car{position:relative;border-radius:14px;overflow:hidden;border:1.5px solid var(--line);background:#07060c;cursor:pointer;aspect-ratio:4/3;transition:.25s var(--ease);padding:0}
+.car:hover{transform:translateY(-3px);border-color:var(--purple-2);box-shadow:0 10px 26px rgba(0,0,0,.4)}
+.car img{width:100%;height:100%;object-fit:cover;display:block}
+.car .id{position:absolute;top:6px;inset-inline-start:6px;font-family:var(--mono);font-size:.7rem;background:rgba(7,6,12,.8);padding:1px 7px;border-radius:6px}
+.car .pred{position:absolute;bottom:6px;inset-inline:6px;display:flex;justify-content:space-between;align-items:center;font-size:.7rem;font-weight:600;background:rgba(7,6,12,.82);padding:3px 7px;border-radius:7px}
+.car .pred .ok{color:var(--green)} .car .pred .al{color:var(--red)}
+.car.wrong{border-color:var(--amber)}
+.car .wr{position:absolute;top:6px;inset-inline-end:6px;background:var(--amber);color:#1a1200;font-size:.66rem;font-weight:700;padding:1px 7px;border-radius:6px}
+.ds-pager{display:flex;justify-content:center;align-items:center;gap:6px;margin-top:16px;flex-wrap:wrap}
+.ds-pager button{min-width:36px;border:1px solid var(--line);background:var(--bg-2);border-radius:10px;padding:5px 10px;font-size:.84rem;color:var(--muted);font-family:var(--mono)}
+.ds-pager button.on{background:var(--purple);border-color:var(--purple);color:#fff}
+.ds-pager button:disabled{opacity:.4;cursor:default}
+.ds-pager span{color:var(--dim);font-size:.82rem}
+/* modal */
+.modal{position:fixed;inset:0;z-index:90;background:rgba(5,4,10,.78);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px}
+.modal.open{display:flex;animation:fade .25s}
+@keyframes fade{from{opacity:0}}
+.modal-box{background:var(--card);border:1px solid var(--line);border-radius:22px;width:min(1100px,100%);max-height:calc(100vh - 36px);overflow:auto;padding:24px;position:relative}
+.modal-x{position:absolute;top:12px;inset-inline-end:12px;border:1px solid var(--line);background:var(--bg-2);border-radius:10px;width:34px;height:34px;z-index:2}
+.modal-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:24px}
+@media (max-width:860px){.modal-grid{grid-template-columns:1fr}}
+.modal-grid>*{min-width:0}
+.m-img{position:relative;border-radius:14px;overflow:hidden;background:#000}
+.m-img img{width:100%;display:block}
+.m-img svg{position:absolute;inset:0;width:100%;height:100%}
+.m-legend{display:flex;gap:16px;font-size:.78rem;color:var(--muted);margin-top:8px}
+.m-legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-inline-end:6px;vertical-align:middle}
+.m-steps{display:grid;gap:8px;margin-top:14px}
+.m-step{display:grid;grid-template-columns:28px 1fr;gap:10px;background:var(--bg-2);border:1px solid var(--line);border-radius:12px;padding:10px 12px}
+.m-step .n{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;font-family:var(--mono);font-size:.78rem;background:var(--card-2)}
+.m-step.ok .n{background:var(--green);color:#06140d} .m-step.bad .n{background:var(--red);color:#fff} .m-step.skip{opacity:.5}
+.m-step h5{margin:0;font-size:.9rem}
+.m-step p{margin:2px 0 0;font-size:.82rem;color:var(--muted);word-break:break-word}
+.m-step .mono{color:var(--ink)}
+
 /* toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,140%);z-index:100;background:var(--card-2);border:1px solid var(--red);color:var(--ink);padding:14px 20px;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.5);display:flex;align-items:center;gap:12px;transition:transform .45s var(--ease);max-width:calc(100% - 32px)}
 .toast.show{transform:translate(-50%,0)}
@@ -325,6 +390,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
     <nav class="nav-links">
       <a href="#pipeline">آلية العمل</a>
       <a href="#demo">جرّب النظام</a>
+      <a href="#dataset">نتائج الاختبار</a>
       <a href="#database">قاعدة البيانات</a>
       <a href="#compare">المقارنة</a>
       <a href="#team">الفريق</a>
@@ -380,9 +446,9 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
 
   <div class="container">
     <div class="stats reveal">
-      <div class="stat"><b data-count="160">0</b><span>صورة مركبة في البيانات</span></div>
+      <div class="stat"><b data-count="1000">0</b><span>صورة مركبة تم اختبارها</span></div>
       <div class="stat"><b data-count="3">0</b><span>مصادر تحقق: OCR · QR · السجل</span></div>
-      <div class="stat"><b>XOR</b><span>تشفير + Base64</span></div>
+      <div class="stat"><b id="statAcc">—</b><span>دقة القرار على البيانات</span></div>
       <div class="stat"><b dir="ltr">&lt;1s</b><span>للمقارنة والتنبيه</span></div>
     </div>
   </div>
@@ -486,7 +552,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
           <span class="grow"></span>
           <div style="display:flex;gap:8px;align-items:center">
             <label for="keyIn" style="font-size:.82rem;color:var(--muted)">المفتاح السري</label>
-            <input class="input key" id="keyIn" value="MySecretKey" style="width:170px;padding:6px 12px;font-size:.9rem" />
+            <input class="input key" id="keyIn" value="UQU_AI3101" style="width:170px;padding:6px 12px;font-size:.9rem" />
           </div>
         </div>
         <div class="field">
@@ -577,34 +643,105 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
   </div>
 </section>
 
+<!-- ================= DATASET TEST ================= -->
+<section class="sec" id="dataset">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">03 — DATASET TEST · 1000 VEHICLES</span>
+      <h2>اختبار النظام على بيانات المشروع</h2>
+      <p>شغّلنا النظام على 1000 صورة: المركبات <b>1–800 سليمة</b> و<b>801–1000 غير مصرّح بها</b>. لكل صورة: نقرأ الـ QR ونفك تشفيره، ونبحث عن اللوحة في السجل الرسمي، ثم نفحص بالـ OCR إن كانت اللوحة الظاهرة في الصورة تخالف لوحة الـ QR.</p>
+    </div>
+
+    <div class="ds-metrics reveal" id="dsMetrics"><div class="ds-loading">جاري تحميل النتائج…</div></div>
+
+    <div class="ds-charts reveal">
+      <div class="panel">
+        <div class="panel-head"><div><h3>مصفوفة الالتباس</h3><div class="sub">Confusion matrix</div></div></div>
+        <div class="cm" id="dsCm"></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><div><h3>أين يتوقف كل قرار؟</h3><div class="sub">Decision breakdown</div></div></div>
+        <div id="dsReasons"></div>
+      </div>
+    </div>
+
+    <div class="panel reveal" style="margin-top:18px">
+      <div class="panel-head">
+        <div><h3>معرض المركبات</h3><div class="sub">اضغط على أي سيارة لعرض خطوات التحقق كاملة</div></div>
+        <span class="grow"></span>
+        <input class="input" id="dsSearch" placeholder="رقم السيارة أو اللوحة…" style="width:220px;text-transform:none;padding:7px 12px;font-size:.88rem" />
+      </div>
+      <div class="ds-filters" id="dsFilters">
+        <button class="chip-btn on" data-f="all">الكل</button>
+        <button class="chip-btn" data-f="legit">سليمة (1–800)</button>
+        <button class="chip-btn" data-f="unauth">غير مصرّح (801–1000)</button>
+        <button class="chip-btn" data-f="ok">✓ قرار صحيح</button>
+        <button class="chip-btn" data-f="wrong">✗ قرار خاطئ</button>
+        <button class="chip-btn" data-f="noqr">QR غير مقروء</button>
+      </div>
+      <div class="ds-grid" id="dsGrid"></div>
+      <div class="ds-pager" id="dsPager"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ================= DATABASE ================= -->
 <section class="sec" id="database">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="eyebrow">03 — ENCRYPTED DATABASE</span>
+      <span class="eyebrow">04 — ENCRYPTED DATABASE</span>
       <h2>السجل الرسمي المشفّر</h2>
-      <p>أرقام اللوحات تُخزَّن مشفّرة، فلو تسرّب الملف ما تنكشف بيانات السائقين. اضغط على أي سجل لتجربته في المحاكاة.</p>
+      <p>1000 سجل من ملف <span class="mono">vehicles_database.xlsx</span>. أرقام اللوحات مخزّنة مشفّرة بـ XOR (Hex)، فلو تسرّب الملف ما تنكشف اللوحات بدون المفتاح.</p>
     </div>
     <div class="reveal">
       <div class="db-tools">
         <label class="switch"><input type="checkbox" id="decToggle"><span class="track"></span> فك التشفير بالمفتاح السري</label>
-        <span style="font-size:.82rem;color:var(--dim)" class="mono">key = <span id="dbKey">MySecretKey</span></span>
+        <input class="input" id="dbSearch" placeholder="بحث: لوحة، شركة، موديل…" style="width:240px;text-transform:none;padding:7px 12px;font-size:.88rem" />
+        <span style="font-size:.82rem;color:var(--dim)" class="mono">key = UQU_AI3101</span>
       </div>
       <div class="db-wrap">
         <table class="db">
-          <thead><tr><th>#</th><th>اللوحة</th><th>الموديل</th><th>الحالة</th><th>ملاحظة</th></tr></thead>
+          <thead><tr><th>#</th><th>اللوحة</th><th>المركبة</th><th>اللون</th><th>رقم الهيكل</th><th>التصنيف</th></tr></thead>
           <tbody id="dbBody"></tbody>
         </table>
       </div>
+      <div class="ds-pager" id="dbPager"></div>
     </div>
   </div>
 </section>
+
+<!-- car detail modal -->
+<div class="modal" id="carModal" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="modal-x" id="mClose" aria-label="إغلاق">✕</button>
+    <div class="modal-grid">
+      <div>
+        <div class="m-img"><img id="mImg" alt="" /><svg id="mSvg" viewBox="0 0 1 1" preserveAspectRatio="none"></svg></div>
+        <div class="m-legend"><span><i style="background:var(--cyan)"></i>QR</span><span><i style="background:var(--amber)"></i>منطقة اللوحة المقروءة</span></div>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+          <button class="btn btn-primary btn-sm" id="mLive" style="flex:1">تحقق مباشر في المتصفح</button>
+          <button class="btn btn-ghost btn-sm" id="mDemo" style="flex:1">افتح في التجربة الحية</button>
+        </div>
+        <div class="status-line" id="mLiveStatus" style="margin-top:8px"></div>
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><h3 id="mTitle" style="margin:0"></h3><span id="mTruth"></span></div>
+        <div class="m-steps" id="mSteps"></div>
+        <div class="verdict" id="mVerdict" style="margin-top:14px"></div>
+        <div style="display:flex;justify-content:space-between;margin-top:12px">
+          <button class="icon-btn" id="mPrev">→ السابقة</button>
+          <button class="icon-btn" id="mNext">التالية ←</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ================= COMPARE ================= -->
 <section class="sec" id="compare">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="eyebrow">04 — SIMILAR PROJECTS</span>
+      <span class="eyebrow">05 — SIMILAR PROJECTS</span>
       <h2>وش يميّز مشروعنا؟</h2>
       <p>مقارنة مع ثلاثة أنظمة مشابهة.</p>
     </div>
@@ -645,7 +782,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
 <section class="sec" id="tech">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="eyebrow">05 — AI TECHNOLOGIES</span>
+      <span class="eyebrow">06 — AI TECHNOLOGIES</span>
       <h2>التقنيات المستخدمة</h2>
     </div>
     <div class="tech reveal">
@@ -661,7 +798,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
 <section class="sec" id="team">
   <div class="container">
     <div class="sec-head reveal">
-      <span class="eyebrow">06 — TEAM</span>
+      <span class="eyebrow">07 — TEAM</span>
       <h2>فريق العمل</h2>
     </div>
     <div class="team reveal">
@@ -718,6 +855,15 @@ function arabicPlate(en){
   m = n.match(/^([A-Z]{3})(\d{1,4})$/);     if(m) return `${toArD(m[2])} ${toArL(m[1])}`;
   return [...n].map(c=>EN_TO_AR_DIGITS[c]||SAUDI_EN_TO_AR[c]).filter(Boolean).join(' ');
 }
+// QR payloads: project format "AI3101-XOR:<hex>" or plain Base64 (notebook format)
+function decodePayload(data,key){
+  data=String(data).trim();
+  try{
+    const m=data.match(/^AI3101-XOR:([0-9A-Fa-f]+)$/);
+    const bytes = m ? m[1].match(/../g).map(h=>parseInt(h,16)) : fromB64(data);
+    return normalizePlate(xorDecrypt(bytes,key));
+  }catch(e){ return ''; }
+}
 const PLATE_RE = /(\d{4}[A-Z]{3}|[A-Z]{3}\d{3,4})/;
 function extractPlate(raw){
   // try each line first (avoids Arabic-row noise), then the whole text
@@ -732,7 +878,7 @@ function extractPlate(raw){
 /* =====================================================
    Shared state
    ===================================================== */
-const state = { ocrPlate:'', official:'', key:'MySecretKey', qrB64:'', qrPlain:'', scenario:'legit', thr:128 };
+const state = { ocrPlate:'', official:'', key:'UQU_AI3101', qrB64:'', qrPlain:'', scenario:'legit', thr:128 };
 const toast = (msg, ok=false) => { const t=$('#toast'); $('#toastTxt').textContent=msg; t.classList.toggle('ok',ok); t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),4200); };
 const sleep = ms => new Promise(r=>setTimeout(r,ms));
 
@@ -755,7 +901,7 @@ const sleep = ms => new Promise(r=>setTimeout(r,ms));
     let read='';
     for(const c of chs){ await sleep(260); c.classList.add('hit'); read+=c.textContent; $('#hOcr').textContent=read; }
     await sleep(400); $('#heroState').textContent='decrypting QR…';
-    const tok = toB64(xorEncrypt(full,'MySecretKey'));
+    const tok = toB64(xorEncrypt(full,'UQU_AI3101'));
     $('#hQr').textContent = tok.slice(0,10)+'…'; await sleep(900);
     $('#hQr').textContent = full; await sleep(500);
     $('#hRes').textContent='MATCH ✓'; $('#hRes').className='ok'; $('#heroState').textContent='verified';
@@ -1039,7 +1185,7 @@ function renderXor(){
   $('#p2').classList.add('done');
 }
 $('#officialIn').addEventListener('input',e=>{ state.official=normalizePlate(e.target.value); renderXor(); renderQr(); fillVerify(); });
-$('#keyIn').addEventListener('input',e=>{ state.key=e.target.value||''; $('#dbKey').textContent=state.key; renderXor(); renderQr(); renderDb(); fillVerify(); });
+$('#keyIn').addEventListener('input',e=>{ state.key=e.target.value||''; renderXor(); renderQr(); fillVerify(); });
 $('#copyB64').addEventListener('click',()=>{ navigator.clipboard?.writeText(state.qrB64).then(()=>toast('تم النسخ',true)); });
 
 /* =====================================================
@@ -1072,7 +1218,7 @@ async function scanQr(fromCanvas=qrCv){
   if(!data && fromCanvas===qrCv && state.qrOnCar){ data=state.qrOnCar; method='قراءة مباشرة'; }
   if(!data){ toast('ما قدرنا نقرأ أي QR من الصورة'); return null; }
   let plain='';
-  try{ plain=normalizePlate(xorDecrypt(fromB64(data.trim()),state.key||'K')); }catch(e){ plain=''; }
+  plain=decodePayload(data,state.key||'K');
   $('#qrData').textContent=data; $('#qrPlain').textContent=plain||'(فشل فك التشفير)'; $('#qrPlainAr').textContent=arabicPlate(plain)||'—'; $('#qrMethod').textContent=method;
   state.qrPlain=plain; $('#p3').classList.add('done');
   return plain;
@@ -1151,47 +1297,25 @@ $('#verifyBtn').addEventListener('click',async()=>{
 });
 
 /* =====================================================
-   DATABASE
-   ===================================================== */
-const DB=[
-  {plate:'6259VFO',model:'Hyundai Elantra',status:'Authorized',note:'من نتيجة الكود الأصلي'},
-  {plate:'9782ISR',model:'Toyota Camry',status:'Authorized',note:'السجل الأصلي'},
-  {plate:'9782ISR',model:'Hyundai Elantra',status:'Mismatch Alert',note:'سجل معدّل للاختبار (لوحة على موديل مختلف)'},
-  {plate:'2030NTU',model:'Toyota Camry',status:'Authorized',note:'مثال QR من التقرير'},
-  {plate:'1234NTU',model:'Nissan Sunny',status:'Stolen',note:'حالة مقلوبة لاختبار الكشف'}
-];
-function renderDb(){
-  const dec=$('#decToggle').checked, key=state.key||'K';
-  $('#dbBody').innerHTML=DB.map((r,i)=>{
-    const tok=toB64(xorEncrypt(r.plate,key));
-    const st = r.status==='Authorized'?'<span class="badge ok">مصرّح</span>':(r.status==='Stolen'?'<span class="badge bad">مسروقة</span>':'<span class="badge bad">تنبيه اختلاف</span>');
-    return `<tr data-i="${i}"><td class="mono">${i+1}</td><td><span class="tok${dec?' plain':''}">${dec?r.plate+'  ·  '+arabicPlate(r.plate):tok}</span></td><td>${r.model}</td><td>${st}</td><td style="color:var(--muted);font-size:.85rem">${r.note}</td></tr>`;
-  }).join('');
-}
-$('#decToggle').addEventListener('change',renderDb);
-$('#dbBody').addEventListener('click',e=>{
-  const tr=e.target.closest('tr'); if(!tr) return; const r=DB[+tr.dataset.i];
-  state.scenario='custom'; setScenarioUi();
-  $('#eOcr').value=r.plate; state.ocrPlate=r.plate;
-  $('#eDb').value=r.plate; state.official=r.plate; $('#officialIn').value=r.plate;
-  $('#eQr').value = r.status==='Authorized' ? r.plate : (DB.find(x=>x.plate!==r.plate)?.plate||'');
-  renderXor(); renderQr(); fillVerify(); resetVerdict();
-  document.getElementById('p4').scrollIntoView({behavior:'smooth',block:'start'});
-  toast('تم تحميل السجل في المحاكاة. اضغط "شغّل التحقق"',true);
-});
-
-/* =====================================================
    INIT
    ===================================================== */
+window.PV = { xorDecrypt, normalizePlate, arabicPlate, decodePayload, toast, sleep,
+  loadIntoDemo(img, box, plate){
+    document.querySelector('#srcTabs [data-src="sample"]').click();
+    loadSource(img, false);
+    if(box){ const p=.25; roi={x1:Math.max(0,box[0]-box[2]*p),y1:Math.max(0,box[1]-box[3]*p),x2:Math.min(1,box[0]+box[2]*(1+p)),y2:Math.min(1,box[1]+box[3]*(1+p))}; renderCar(); preprocess(); }
+    if(plate){ $('#ocrEdit').value=plate; $('#ocrEdit').dispatchEvent(new Event('input')); }
+    document.getElementById('p1').scrollIntoView({behavior:'smooth'});
+  } };
 loadSource(drawSample(SAMPLES[0]));
 // pre-fill with the notebook's own result so the page is alive before OCR runs
 showOcrResult("٦٢٥٩ ى ف و\n6259 V F O\n");
 $('#ocrStatus').textContent='prefilled with notebook output — press the button to run real OCR';
-renderDb();
 setScenarioUi();
 // redraw sample once the Arabic web font is ready
 document.fonts?.ready.then(()=>{ if(mode==='sample'){ const i=+($('#sampleBtns button.on')?.dataset.i||0); srcImg=drawSample(SAMPLES[i]); renderCar(); preprocess(); } });
 })();
 </script>
+<script src="dataset.js"></script>
 </body>
 </html>
