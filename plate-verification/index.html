@@ -306,6 +306,32 @@ table.xor td.flash{background:rgba(119,89,194,.25)}
 .m-step p{margin:2px 0 0;font-size:.82rem;color:var(--muted);word-break:break-word}
 .m-step .mono{color:var(--ink)}
 
+
+/* ===== Check ===== */
+.ck-drop{padding:54px 20px;display:block;background:var(--bg-2)}
+.ck-result{display:grid;grid-template-columns:1fr 1.05fr;gap:24px}
+@media (max-width:860px){.ck-result{grid-template-columns:1fr}}
+.ck-result>*{min-width:0}
+.ck-verdict{display:flex;align-items:center;gap:18px;border-radius:20px;padding:22px 24px;border:2px solid var(--line);background:var(--bg-2);transition:.4s var(--ease)}
+.ck-verdict h3{margin:0;font-size:1.6rem}
+.ck-verdict p{margin:2px 0 0;color:var(--muted)}
+.ck-verdict .big{width:66px;height:66px;border-radius:18px;display:grid;place-items:center;flex:none}
+.ck-verdict .big svg{width:36px;height:36px}
+.ck-verdict.ok{border-color:var(--green);background:linear-gradient(90deg,var(--green-soft),transparent)}
+.ck-verdict.ok .big{background:var(--green);color:#06140d}
+.ck-verdict.ok h3{color:var(--green)}
+.ck-verdict.bad{border-color:var(--red);background:linear-gradient(90deg,var(--red-soft),transparent);animation:shake .5s}
+.ck-verdict.bad .big{background:var(--red);color:#fff;animation:alarm 1s infinite}
+.ck-verdict.bad h3{color:var(--red)}
+.ck-verdict.unk{border-color:var(--amber)}
+.ck-verdict.unk .big{background:var(--amber);color:#1a1200}
+.ck-verdict.unk h3{color:var(--amber)}
+.spin{width:44px;height:44px;border-radius:50%;border:4px solid var(--line);border-top-color:var(--purple-2);animation:rot 1s linear infinite;flex:none}
+@keyframes rot{to{transform:rotate(360deg)}}
+.m-step.run .n{background:var(--amber);color:#1a1200;animation:blink 1s infinite}
+.ck-known{margin-top:12px;background:rgba(119,89,194,.1);border:1px solid rgba(119,89,194,.35);border-radius:14px;padding:12px 14px;font-size:.88rem;color:var(--muted)}
+.ck-known b{color:var(--ink)}
+
 /* toast */
 .toast{position:fixed;bottom:24px;left:50%;transform:translate(-50%,140%);z-index:100;background:var(--card-2);border:1px solid var(--red);color:var(--ink);padding:14px 20px;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.5);display:flex;align-items:center;gap:12px;transition:transform .45s var(--ease);max-width:calc(100% - 32px)}
 .toast.show{transform:translate(-50%,0)}
@@ -388,6 +414,7 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
       <span>Plate<span style="color:var(--purple-2)">Verify</span></span>
     </a>
     <nav class="nav-links">
+      <a href="#check">افحص سيارتك</a>
       <a href="#pipeline">آلية العمل</a>
       <a href="#demo">جرّب النظام</a>
       <a href="#dataset">نتائج الاختبار</a>
@@ -412,9 +439,9 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
       <div class="en-title">Smart License Plate Verification System</div>
       <p class="lead">يقرأ النظام لوحة السيارة من الصورة بتقنية <b>OCR</b>، ويتحقق من صيغتها بـ<b>Regex</b>، ثم يقارنها برمز <b>QR</b> مشفّر بـ<b>XOR</b> وبالسجل الرسمي. إذا لم تتطابق الثلاثة، يُرسل تنبيهاً فورياً للمرور.</p>
       <div class="hero-actions">
-        <a href="#demo" class="btn btn-primary">
+        <a href="#check" class="btn btn-primary">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 3l14 9-14 9V3z"/></svg>
-          جرّب النظام الآن
+          افحص صورة سيارة
         </a>
         <a href="#pipeline" class="btn btn-ghost">كيف يعمل؟</a>
       </div>
@@ -450,6 +477,36 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
       <div class="stat"><b data-count="3">0</b><span>مصادر تحقق: OCR · QR · السجل</span></div>
       <div class="stat"><b id="statAcc">—</b><span>دقة القرار على البيانات</span></div>
       <div class="stat"><b dir="ltr">&lt;1s</b><span>للمقارنة والتنبيه</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CHECK (upload & verify) ================= -->
+<section class="sec" id="check" style="padding-top:40px">
+  <div class="container">
+    <div class="sec-head reveal">
+      <span class="eyebrow">VERIFY A VEHICLE</span>
+      <h2>ارفع صورة السيارة واعرف إذا كانت سليمة</h2>
+      <p>يقرأ النظام الـ QR من الصورة ويفك تشفيره ويبحث عن اللوحة في السجل (1–800 مصرّح، 801–1000 غير مصرّح)، ثم يفحص اللوحة بالـ OCR. كل شي يصير داخل متصفحك.</p>
+    </div>
+    <div class="panel reveal" id="ckPanel">
+      <label class="drop ck-drop" id="ckDrop">
+        <input type="file" accept="image/*" id="ckFile" hidden />
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" style="margin:0 auto 8px;display:block"><path d="M12 16V4M7 9l5-5 5 5M4 20h16"/></svg>
+        <b style="font-size:1.1rem">اسحب صورة السيارة هنا أو اضغط للاختيار</b><br><small>JPG / PNG · مثل صور ملف data set</small>
+      </label>
+      <div class="ck-result hidden" id="ckResult">
+        <div>
+          <div class="m-img"><img id="ckImg" alt="الصورة المرفوعة" /><svg id="ckSvg" viewBox="0 0 1 1" preserveAspectRatio="none"></svg></div>
+          <div class="m-legend"><span><i style="background:var(--cyan)"></i>QR</span><span><i style="background:var(--amber)"></i>اللوحة</span></div>
+          <button class="btn btn-ghost btn-sm" id="ckAgain" style="margin-top:12px;width:100%">افحص صورة ثانية</button>
+        </div>
+        <div>
+          <div class="ck-verdict" id="ckVerdict"><div class="spin"></div><div><h3>جاري الفحص…</h3><p>لحظات</p></div></div>
+          <div class="m-steps" id="ckSteps"></div>
+          <div class="ck-known hidden" id="ckKnown"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -821,8 +878,8 @@ footer{border-top:1px solid var(--line);padding:30px 0;color:var(--dim);font-siz
 <div class="toast" id="toast"><i></i><span id="toastTxt"></span></div>
 
 <!-- QR encode / decode libraries -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
+<script src="lib/qrcode.js"></script>
+<script src="lib/jsQR.js"></script>
 
 <script>
 (() => {
@@ -1317,5 +1374,6 @@ document.fonts?.ready.then(()=>{ if(mode==='sample'){ const i=+($('#sampleBtns b
 })();
 </script>
 <script src="dataset.js"></script>
+<script src="check.js"></script>
 </body>
 </html>
