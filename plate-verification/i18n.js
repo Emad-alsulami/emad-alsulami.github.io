@@ -18,7 +18,6 @@ const EN = {
   "نتائج الاختبار": "Test results",
   "قاعدة البيانات": "Database",
   "المقارنة": "Comparison",
-  "ملف الأعمال": "Portfolio",
   // hero
   "مشروع مقرر AI3101، جامعة أم القرى": "AI3101 course project, Umm Al-Qura University",
   "نظام التحقق الذكي<br>من لوحات المركبات": "Smart License Plate<br>Verification System",
@@ -156,8 +155,8 @@ const EN = {
   "QR + تشفير XOR": "QR + XOR encryption",
   "هوية رقمية مشفّرة لكل سيارة تُقارن مع اللوحة لكشف اللوحات المزورة أو المبدّلة.": "An encrypted digital identity for each car, compared with its plate to catch forged or swapped plates.",
   // footer
-  "نظام التحقق الذكي من لوحات المركبات، ضمن <a href=\"../\">ملف أعمال عماد السلمي</a> <br><small>البيانات: <a href=\"https://huggingface.co/datasets/keremberke/license-plate-object-detection\" target=\"_blank\" rel=\"noopener\" style=\"text-decoration:underline;color:#fff\">license-plate-object-detection</a> + صور وسجلات جمعها الفريق</small>":
-    "Smart License Plate Verification System, part of <a href=\"../\">Emad Al-Sulami’s portfolio</a> <br><small>Data: <a href=\"https://huggingface.co/datasets/keremberke/license-plate-object-detection\" target=\"_blank\" rel=\"noopener\" style=\"text-decoration:underline;color:#fff\">license-plate-object-detection</a> plus photos and records collected by the team</small>",
+  "نظام التحقق الذكي من لوحات المركبات <br><small>البيانات: <a href=\"https://huggingface.co/datasets/keremberke/license-plate-object-detection\" target=\"_blank\" rel=\"noopener\" style=\"text-decoration:underline;color:#fff\">license-plate-object-detection</a> + صور وسجلات جمعها الفريق</small>":
+    "Smart License Plate Verification System <br><small>Data: <a href=\"https://huggingface.co/datasets/keremberke/license-plate-object-detection\" target=\"_blank\" rel=\"noopener\" style=\"text-decoration:underline;color:#fff\">license-plate-object-detection</a> plus photos and records collected by the team</small>",
   // attributes
   "الصورة المرفوعة": "Uploaded photo",
   "رقم السيارة أو اللوحة…": "Vehicle number or plate…",
