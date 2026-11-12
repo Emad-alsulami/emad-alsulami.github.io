@@ -373,10 +373,23 @@
     const bubble = document.createElement("div");
     bubble.className = "bubble";
     if (role === "user") {
-      bubble.textContent = content;
-      bubble.setAttribute("dir", "auto");
+      if (opts && Array.isArray(opts.images) && opts.images.length) bubble.appendChild(renderImages(opts.images));
+      if (content) {
+        const t = document.createElement("div");
+        t.textContent = content;
+        t.setAttribute("dir", "auto");
+        bubble.appendChild(t);
+      }
     } else if (opts && opts.typing) {
-      bubble.innerHTML = '<div class="typing"><i></i><i></i><i></i></div>';
+      bubble.innerHTML = '<div class="typing"><i></i><i></i><i></i></div><span class="typing-label"></span>';
+      const label = bubble.querySelector(".typing-label");
+      const timers = [
+        setTimeout(() => { label.textContent = "يفكّر…"; }, 1500),
+        setTimeout(() => { label.textContent = "يبحث ويقرأ إذا احتاج…"; }, 6000),
+        setTimeout(() => { label.textContent = "قرّب يخلص…"; }, 16000),
+      ];
+      row.dataset.typing = "1";
+      row._timers = timers;
     } else if (opts && opts.error) {
       bubble.textContent = content;
       const retry = document.createElement("button");
@@ -387,7 +400,10 @@
       bubble.appendChild(document.createElement("br"));
       bubble.appendChild(retry);
     } else {
-      bubble.innerHTML = renderMarkdown(content);
+      if (opts && Array.isArray(opts.steps) && opts.steps.length) bubble.appendChild(renderSteps(opts.steps));
+      const body = document.createElement("div");
+      body.innerHTML = renderMarkdown(content);
+      bubble.appendChild(body);
     }
     row.appendChild(avatar());
     row.appendChild(bubble);
@@ -406,10 +422,15 @@
     input.style.height = "auto";
     input.style.height = Math.min(input.scrollHeight, 200) + "px";
     const c = activeChat();
-    sendBtn.disabled = busy() || !input.value.trim() || (c && c.messages === null);
+    sendBtn.disabled = busy() || (!input.value.trim() && !pendingImages.length) || (c && c.messages === null);
+  }
+
+  function clearTyping() {
+    chat.querySelectorAll(".typing-row").forEach((r) => { (r._timers || []).forEach(clearTimeout); r.remove(); });
   }
 
   function renderChat() {
+    clearTyping();
     chat.querySelectorAll(".msg").forEach((m) => m.remove());
     const c = activeChat();
     if (c && c.messages === null) {
@@ -419,11 +440,162 @@
     } else {
       const msgs = c ? c.messages : [];
       welcome.hidden = msgs.length > 0;
-      msgs.forEach((m) => addMessage(m.role, m.content));
+      msgs.forEach((m) => addMessage(m.role, m.content, { images: m.images, steps: m.steps }));
       if (pendingChatId && pendingChatId === activeId) addMessage("assistant", "", { typing: true });
     }
     document.title = c ? c.title + " | نانو" : "نانو | Nano — مستشارك الذكي";
     autosize();
+  }
+
+
+  // ===== Images & tool steps UI =====
+  const STEP_ICONS = { web_search: "🔎", fetch_url: "📄", calculate: "🧮", remember: "🧠", forget: "🗑️", source: "🔗" };
+
+  function renderImages(images) {
+    const box = document.createElement("div");
+    box.className = "msg-images";
+    images.forEach((src) => {
+      const img = document.createElement("img");
+      img.src = src;
+      img.alt = "صورة مرفقة";
+      img.loading = "lazy";
+      img.onclick = () => openLightbox(src);
+      box.appendChild(img);
+    });
+    return box;
+  }
+
+  function openLightbox(src) {
+    const lb = document.createElement("div");
+    lb.className = "lightbox";
+    const img = document.createElement("img");
+    img.src = src;
+    lb.appendChild(img);
+    lb.onclick = () => lb.remove();
+    document.body.appendChild(lb);
+  }
+
+  function renderSteps(steps) {
+    const box = document.createElement("div");
+    box.className = "steps";
+    steps.forEach((st) => {
+      const isLink = st.url && /^https?:\/\//.test(st.url);
+      const el = document.createElement(isLink ? "a" : "span");
+      el.className = "step" + (st.ok === false ? " fail" : "");
+      el.textContent = (STEP_ICONS[st.tool] || "⚙️") + " " + (st.label || st.tool);
+      el.title = st.label || "";
+      el.setAttribute("dir", "auto");
+      if (isLink) { el.href = st.url; el.target = "_blank"; el.rel = "noopener"; }
+      box.appendChild(el);
+    });
+    return box;
+  }
+
+  // ===== Attachments =====
+  let pendingImages = [];
+  const MAX_ATTACH = 2;
+
+  function resizeImage(file) {
+    return new Promise((resolve, reject) => {
+      if (!/^image\//.test(file.type)) return reject(new Error("الملف مو صورة."));
+      if (file.size > 20 * 1024 * 1024) return reject(new Error("الصورة كبيرة مرة (أكثر من 20MB)."));
+      const url = URL.createObjectURL(file);
+      const img = new Image();
+      img.onload = () => {
+        const max = 1024;
+        let { width: w, height: h } = img;
+        if (Math.max(w, h) > max) { const k = max / Math.max(w, h); w = Math.round(w * k); h = Math.round(h * k); }
+        const c = document.createElement("canvas");
+        c.width = w; c.height = h;
+        const g = c.getContext("2d");
+        g.fillStyle = "#fff";
+        g.fillRect(0, 0, w, h);
+        g.drawImage(img, 0, 0, w, h);
+        URL.revokeObjectURL(url);
+        resolve(c.toDataURL("image/jpeg", 0.8));
+      };
+      img.onerror = () => { URL.revokeObjectURL(url); reject(new Error("ما قدرت أقرأ الصورة.")); };
+      img.src = url;
+    });
+  }
+
+  async function addFiles(files) {
+    const list = Array.from(files || []).filter((f) => /^image\//.test(f.type));
+    if (!list.length) return;
+    for (const f of list) {
+      if (pendingImages.length >= MAX_ATTACH) { toast("أقصى شي " + MAX_ATTACH + " صور في الرسالة."); break; }
+      try { pendingImages.push(await resizeImage(f)); }
+      catch (e) { toast(e.message); }
+    }
+    renderPreview();
+    autosize();
+    input.focus();
+  }
+
+  function renderPreview() {
+    const box = $("preview");
+    box.innerHTML = "";
+    box.hidden = !pendingImages.length;
+    pendingImages.forEach((src, i) => {
+      const t = document.createElement("div");
+      t.className = "thumb";
+      const img = document.createElement("img");
+      img.src = src;
+      const x = document.createElement("button");
+      x.type = "button";
+      x.textContent = "×";
+      x.setAttribute("aria-label", "إزالة الصورة");
+      x.onclick = () => { pendingImages.splice(i, 1); renderPreview(); autosize(); };
+      t.appendChild(img);
+      t.appendChild(x);
+      box.appendChild(t);
+    });
+  }
+
+  // ===== Memory panel =====
+  async function openMemories() {
+    if (!auth) { toast("الذاكرة للحسابات المسجلة."); return; }
+    openSidebar(false);
+    $("memModal").hidden = false;
+    const list = $("memList");
+    list.innerHTML = '<li class="mem-empty">جاري التحميل…</li>';
+    try {
+      const { memories } = await api("/memories");
+      renderMemories(memories || []);
+    } catch (e) {
+      list.innerHTML = "";
+      const li = document.createElement("li");
+      li.className = "mem-empty";
+      li.textContent = e.message;
+      list.appendChild(li);
+    }
+  }
+
+  function renderMemories(memories) {
+    const list = $("memList");
+    list.innerHTML = "";
+    $("memClear").hidden = !memories.length;
+    if (!memories.length) {
+      list.innerHTML = '<li class="mem-empty">الذاكرة فاضية. قل لنانو مثلاً: "تذكر إني أدرس علوم حاسب وأحب الحلول العملية".</li>';
+      return;
+    }
+    memories.forEach((m) => {
+      const li = document.createElement("li");
+      const sp = document.createElement("span");
+      sp.textContent = m.content;
+      sp.setAttribute("dir", "auto");
+      const del = document.createElement("button");
+      del.type = "button";
+      del.title = "احذف";
+      del.textContent = "×";
+      del.onclick = async () => {
+        try { await api("/memories/" + m.id, { method: "DELETE" }); li.remove(); if (!list.children.length) renderMemories([]); }
+        catch (e) { toast(e.message); }
+      };
+      li.appendChild(sp);
+      li.appendChild(del);
+      list.appendChild(li);
+    });
   }
 
   // ===== Sidebar UI =====
@@ -592,9 +764,20 @@
     autosize();
     if (chatId === activeId) addMessage("assistant", "", { typing: true });
 
-    let reply = null, error = null;
+    let reply = null, steps = [], memoryChanged = false, error = null;
+    const lastUser = c.messages.map((m) => m.role).lastIndexOf("user");
+    const payload = c.messages.map((m, i) => {
+      const o = { role: m.role, content: m.content };
+      if (Array.isArray(m.images) && m.images.length) {
+        if (i === lastUser) o.images = m.images; else o.hadImages = true;
+      }
+      return o;
+    });
     try {
-      reply = (await api("/chat", { method: "POST", auth: false, body: { messages: c.messages } })).reply;
+      const data = await api("/chat", { method: "POST", body: { messages: payload } });
+      reply = data.reply;
+      steps = Array.isArray(data.steps) ? data.steps : [];
+      memoryChanged = !!data.memoryChanged;
     } catch (e) {
       error = e.message;
     }
@@ -603,15 +786,21 @@
     pendingChatId = null;
     const still = getChat(chatId);
     if (reply && still) {
-      still.messages.push({ role: "assistant", content: reply });
+      const msg = { role: "assistant", content: reply };
+      if (steps.length) msg.steps = steps;
+      still.messages.push(msg);
       still.updatedAt = Date.now();
       save();
       renderList();
       pushChat(chatId);
     }
+    if (memoryChanged) {
+      toast("🧠 نانو حدّث ذاكرته عنك");
+      if (!$("memModal").hidden) openMemories();
+    }
     if (chatId === activeId) {
-      chat.querySelectorAll(".typing-row").forEach((r) => r.remove());
-      if (reply) addMessage("assistant", reply);
+      clearTyping();
+      if (reply) addMessage("assistant", reply, { steps });
       else addMessage("assistant", error, { error: true });
     }
     autosize();
@@ -620,7 +809,8 @@
 
   function send(text) {
     text = (text || "").trim();
-    if (!text || busy()) return;
+    const images = pendingImages.slice();
+    if ((!text && !images.length) || busy()) return;
     let c = activeChat();
     if (c && c.messages === null) return;
     if (!c) {
@@ -629,12 +819,16 @@
       state.chats.unshift(c);
       activeId = c.id;
     }
-    c.messages.push({ role: "user", content: text });
-    if (!c.title) c.title = makeTitle(c.messages);
+    const um = { role: "user", content: text };
+    if (images.length) um.images = images;
+    c.messages.push(um);
+    pendingImages = [];
+    renderPreview();
+    if (!c.title) c.title = text ? makeTitle(c.messages) : "🖼️ صورة";
     c.updatedAt = Date.now();
     save();
     renderList();
-    addMessage("user", text);
+    addMessage("user", text, { images });
     input.value = "";
     autosize();
     pushChat(c.id); // نحفظ رسالتك في السحابة حتى لو فشل الرد
@@ -660,6 +854,31 @@
   backdrop.addEventListener("click", () => openSidebar(false));
   searchEl.addEventListener("input", renderList);
 
+  $("attachBtn").addEventListener("click", () => $("fileInput").click());
+  $("fileInput").addEventListener("change", (e) => { addFiles(e.target.files); e.target.value = ""; });
+  input.addEventListener("paste", (e) => {
+    const files = Array.from(e.clipboardData?.items || []).filter((i) => i.kind === "file").map((i) => i.getAsFile()).filter(Boolean);
+    if (files.length) { e.preventDefault(); addFiles(files); }
+  });
+  let dragDepth = 0;
+  document.addEventListener("dragenter", (e) => { if (e.dataTransfer?.types?.includes("Files")) { dragDepth++; document.body.classList.add("dragging"); } });
+  document.addEventListener("dragleave", () => { if (--dragDepth <= 0) { dragDepth = 0; document.body.classList.remove("dragging"); } });
+  document.addEventListener("dragover", (e) => { if (e.dataTransfer?.types?.includes("Files")) e.preventDefault(); });
+  document.addEventListener("drop", (e) => {
+    if (!e.dataTransfer?.files?.length) return;
+    e.preventDefault();
+    dragDepth = 0;
+    document.body.classList.remove("dragging");
+    addFiles(e.dataTransfer.files);
+  });
+  $("memoryBtn").addEventListener("click", openMemories);
+  $("memClose").addEventListener("click", () => { $("memModal").hidden = true; });
+  $("memModal").addEventListener("click", (e) => { if (e.target.id === "memModal") $("memModal").hidden = true; });
+  $("memClear").addEventListener("click", async () => {
+    if (!confirm("تمسح كل اللي يعرفه نانو عنك؟")) return;
+    try { await api("/memories", { method: "DELETE" }); renderMemories([]); toast("انمسحت الذاكرة."); }
+    catch (e) { toast(e.message); }
+  });
   $("loginBtn").addEventListener("click", () => { setAuthMode("login"); openAuth(true); });
   $("logoutBtn").addEventListener("click", logout);
   $("authClose").addEventListener("click", () => openAuth(false));
@@ -668,7 +887,10 @@
   document.querySelectorAll(".tabs button").forEach((b) => b.addEventListener("click", () => setAuthMode(b.dataset.mode)));
 
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") { openSidebar(false); openAuth(false); }
+    if (e.key === "Escape") {
+      openSidebar(false); openAuth(false); $("memModal").hidden = true;
+      document.querySelectorAll(".lightbox").forEach((l) => l.remove());
+    }
   });
 
   // تحديث من السحابة لما ترجع للتبويب، وإعادة محاولة لما يرجع النت
