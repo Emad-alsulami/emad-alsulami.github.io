@@ -1,5 +1,5 @@
 // ضع هنا رابط الـ Worker بعد ما تنشره على Cloudflare
 // مثال: "https://nano.your-name.workers.dev"
 window.NANO_CONFIG = {
-  WORKER_URL: "",
+  WORKER_URL: "https://nano.aoi95613.workers.dev",
 };
