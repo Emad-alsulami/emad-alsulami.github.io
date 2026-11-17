@@ -651,3 +651,8 @@ body { transition: opacity .2s; }
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- GSAP motion layer (active only when GSAP loads and reduced motion is off) ---------- */
+.gsap-on .reveal { opacity: 1; transform: none; transition: none; }
+.gsap-on .bar i { transition: none; }
+.gsap-on .scroll-progress { width: 100%; transform: scaleX(0); }

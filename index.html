@@ -19,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=2" />
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
 
@@ -474,9 +474,16 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
+  <!-- GSAP + ScrollTrigger (animations). If they fail to load, the site falls back to the CSS/IntersectionObserver version. -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
   <script>
   (function () {
     'use strict';
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const motion = !!(window.gsap && window.ScrollTrigger) && !reduce;
+    if (motion) { gsap.registerPlugin(ScrollTrigger); document.documentElement.classList.add('gsap-on'); }
+    const startOrigin = () => (document.documentElement.dir === 'rtl' ? 'right center' : 'left center');
     const WA = '966552907656';
     const EMAIL = 'emadfaisalalsulami@gmail.com';
     /* إعداد إرسال الرسائل إلى واتساب (CallMeBot) — ضع مفتاح API هنا بعد تفعيله */
@@ -527,6 +534,7 @@
       $$('.counter.done').forEach(el => { el.textContent = num(el.dataset.target) + (el.dataset.pct ? (lang === 'ar' ? '٪' : '%') : '+'); });
       if (note.className.includes('ok')) note.textContent = t('sent');
       restartTyping();
+      if (motion && save) { gsap.set('#scrollProgress', { transformOrigin: startOrigin() }); ScrollTrigger.refresh(); }
       if (save) { try { localStorage.setItem('lang', lang); } catch (e) {} }
     }
 
@@ -553,7 +561,7 @@
       const y = window.scrollY;
       header.classList.toggle('scrolled', y > 10);
       const h = document.documentElement.scrollHeight - innerHeight;
-      progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+      if (!motion) progress.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
       let current = '';
       sections.forEach(s => { if (y >= s.offsetTop - 120) current = s.id; });
       $$('.nav-links a[href^="#"]').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
@@ -562,7 +570,6 @@
 
     /* Typing effect */
     const typed = $('#typed');
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     let typeTimer = null;
     function restartTyping() {
       clearTimeout(typeTimer);
@@ -581,7 +588,18 @@
 
     /* Counters */
     function runCounter(el) {
+      if (el._ran) return; el._ran = true;
       const target = +el.dataset.target;
+      const suffix = () => (el.dataset.pct ? (lang === 'ar' ? '٪' : '%') : '+');
+      if (motion) {
+        const o = { v: 0 };
+        gsap.to(o, {
+          v: target, duration: 1.6, ease: 'power3.out',
+          onUpdate: () => { el.textContent = num(Math.round(o.v)); },
+          onComplete: () => { el.textContent = num(target) + suffix(); el.classList.add('done'); }
+        });
+        return;
+      }
       const start = performance.now(), dur = 1400;
       (function step(tm) {
         const k = Math.min((tm - start) / dur, 1), e = 1 - Math.pow(1 - k, 3);
@@ -593,20 +611,87 @@
 
     /* Skill bars */
     function fillBars(panel) {
-      $$('.bar i', panel).forEach(i => { i.style.width = i.dataset.level + '%'; });
+      const bars = $$('.bar i', panel);
+      if (!motion) { bars.forEach(i => { i.style.width = i.dataset.level + '%'; }); return; }
+      gsap.set(bars, { width: (i, el) => el.dataset.level + '%' });
+      gsap.fromTo(bars, { scaleX: 0 }, {
+        scaleX: 1, duration: 1.2, ease: 'power3.out', stagger: 0.08,
+        transformOrigin: startOrigin(), overwrite: true
+      });
     }
 
-    /* Reveal on scroll */
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(en => {
-        if (!en.isIntersecting) return;
-        en.target.classList.add('visible');
-        $$('.counter', en.target).forEach(runCounter);
-        if (en.target.classList.contains('skills-panels')) fillBars($('.skill-panel.active'));
-        io.unobserve(en.target);
+    function onRevealed(el) {
+      el.classList.add('visible');
+      $$('.counter', el).forEach(runCounter);
+      if (el.classList.contains('skills-panels')) fillBars($('.skill-panel.active'));
+    }
+
+    if (motion) {
+      /* ===== GSAP motion layer ===== */
+
+      // Hero intro — one timeline, sequenced with the position parameter
+      gsap.set('.hero .reveal', { autoAlpha: 1 });
+      const heroBtns = $$('.hero-actions .btn');
+      gsap.set(heroBtns, { transition: 'none' }); // avoid fighting the CSS hover transition
+      gsap.timeline({ defaults: { duration: 0.8, ease: 'power3.out' } })
+        .from('.hero-text .badge', { y: 20, autoAlpha: 0 })
+        .from('.hero-text h1 > span', { y: 40, autoAlpha: 0, stagger: 0.12 }, '-=0.5')
+        .from('.hero-text .typed-line', { y: 20, autoAlpha: 0 }, '-=0.5')
+        .from('.hero-text .lead', { y: 20, autoAlpha: 0 }, '<0.1')
+        .from(heroBtns, { y: 20, autoAlpha: 0, stagger: 0.1, clearProps: 'transform,opacity,visibility,transition' }, '-=0.5')
+        .from('.stats li', { y: 20, autoAlpha: 0, stagger: 0.1, onStart: () => $$('.hero .counter').forEach(runCounter) }, '-=0.4')
+        .from('.hero-visual', { y: 50, rotation: 4, scale: 0.94, autoAlpha: 0, duration: 1.1 }, 0.25)
+        .from('.scroll-hint', { autoAlpha: 0, duration: 0.6 }, '-=0.3');
+
+      // Hero parallax while scrolling away
+      const heroST = { trigger: '.hero', start: 'top top', end: 'bottom top', scrub: true };
+      gsap.to('.hero-bg', { yPercent: 25, ease: 'none', scrollTrigger: heroST });
+      gsap.to('.hero-grid', { yPercent: -6, opacity: 0.35, ease: 'none', scrollTrigger: { ...heroST, scrub: 0.6 } });
+
+      // Scroll progress bar (scrubbed)
+      gsap.set(progress, { width: '100%', scaleX: 0, transformOrigin: startOrigin() });
+      gsap.to(progress, {
+        scaleX: 1, ease: 'none',
+        scrollTrigger: { trigger: document.documentElement, start: 'top top', end: 'bottom bottom', scrub: 0.3 }
       });
-    }, { threshold: 0.15 });
-    $$('.reveal').forEach(el => io.observe(el));
+
+      // Section reveals — batched so elements entering together stagger together
+      const reveals = $$('.reveal').filter(el => !el.closest('.hero'));
+      gsap.set(reveals, { autoAlpha: 0, y: 40 });
+      ScrollTrigger.batch(reveals, {
+        start: 'top 85%',
+        once: true,
+        onEnter: batch => {
+          gsap.to(batch, { autoAlpha: 1, y: 0, duration: 0.9, ease: 'power3.out', stagger: 0.12, overwrite: true, clearProps: 'transform' });
+          batch.forEach(el => {
+            onRevealed(el);
+            // Stagger the inner pieces of each block
+            const kids = el.classList.contains('section-head')
+              ? Array.from(el.children)
+              : $$('.case-features li, .chips li, .shot, .tech-cloud > *, .values > .value, .contact-cards > *', el);
+            if (!kids.length) return;
+            gsap.set(kids, { transition: 'none' });
+            gsap.from(kids, {
+              y: 24, autoAlpha: 0, duration: 0.7, ease: 'power2.out', stagger: 0.06, delay: 0.2,
+              clearProps: 'transform,opacity,visibility,transition'
+            });
+          });
+        }
+      });
+
+      // Recalculate trigger positions once images & fonts are in
+      addEventListener('load', () => ScrollTrigger.refresh());
+    } else {
+      /* Fallback: reveal on scroll without GSAP */
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          onRevealed(en.target);
+          io.unobserve(en.target);
+        });
+      }, { threshold: 0.15 });
+      $$('.reveal').forEach(el => io.observe(el));
+    }
 
     /* Skills tabs */
     $$('.tab').forEach(tab => tab.addEventListener('click', () => {
